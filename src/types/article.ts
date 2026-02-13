@@ -1,10 +1,10 @@
 export interface Article {
-    id: number;
+    id: string;
     headline: string;
     body: string;
     author: string;
     publicationDate: string;
     published: boolean;
     createdAt: string;
-    updatedAt: string;  
+    updatedAt: string;
 }
