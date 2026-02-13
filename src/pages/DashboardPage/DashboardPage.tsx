@@ -1,5 +1,6 @@
 import { DashboardTemplate } from '../../components/templates/DashboardTemplate';
 import { ArticleTable } from '../../components/organisms/ArticleTable';
+import { Header } from '../../components/organisms/Header';
 import { FilterBar } from '../../components/molecules/FilterBar';
 import { AsidePanel } from '../../components/organisms/AsidePanel';
 import { ArticleForm } from '../../components/organisms/ArticleForm';
@@ -12,6 +13,8 @@ export const DashboardPage = () => {
         articles,
         filterStatus,
         setFilterStatus,
+        searchQuery,
+        setSearchQuery,
         panelMode,
         selectedArticleId,
         getArticleById,
@@ -45,6 +48,12 @@ export const DashboardPage = () => {
 
     return (
         <DashboardTemplate
+            header={
+                <Header
+                    searchValue={searchQuery}
+                    onSearchChange={setSearchQuery}
+                />
+            }
             filterBar={
                 <FilterBar
                     filterStatus={filterStatus}
