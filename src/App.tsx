@@ -1,9 +1,7 @@
-function App() {
+import { DashboardPage } from './pages/DashboardPage';
 
-  return (
-    <div>
-      <h1>App</h1>
-    </div>
-  );
+function App() {
+  return <DashboardPage />;
 }
-export default App
+
+export default App;
