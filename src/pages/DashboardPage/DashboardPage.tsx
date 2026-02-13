@@ -1,51 +1,93 @@
-import { useState, useMemo } from 'react';
 import { DashboardTemplate } from '../../components/templates/DashboardTemplate';
 import { ArticleTable } from '../../components/organisms/ArticleTable';
-import { useArticles } from '../../features/articles/useArticles';
+import { FilterBar } from '../../components/molecules/FilterBar';
+import { AsidePanel } from '../../components/organisms/AsidePanel';
+import { ArticleForm } from '../../components/organisms/ArticleForm';
+import type { DropdownOption } from '../../components/atoms/Dropdown';
+import type { Article } from '../../types/article';
+import { useDashboardLogic } from './useDashboardLogic';
 
 export const DashboardPage = () => {
-    const { articles, togglePublished } = useArticles();
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filterStatus, setFilterStatus] = useState<'all' | 'published' | 'unpublished'>('all');
+    const {
+        articles,
+        filterStatus,
+        setFilterStatus,
+        panelMode,
+        selectedArticleId,
+        getArticleById,
+        handleArticleClick,
+        handleEdit,
+        handleDelete,
+        handleAddArticle,
+        handleClosePanel,
+        handleFormSubmit,
+        handleTogglePublished
+    } = useDashboardLogic();
 
-    const filteredArticles = useMemo(() => {
-        return articles.filter((article) => {
-            const matchesSearch = article.headline
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase());
-
-            const matchesFilter =
-                filterStatus === 'all' ||
-                (filterStatus === 'published' && article.published) ||
-                (filterStatus === 'unpublished' && !article.published);
-
-            return matchesSearch && matchesFilter;
-        });
-    }, [articles, searchQuery, filterStatus]);
-
-    const handleArticleClick = (id: string) => {
-        console.log('Article clicked:', id);
-    };
-
-    const handleTogglePublished = (id: string) => {
-        togglePublished(id);
-    };
+    const getArticleActions = (article: Article): DropdownOption[] => [
+        {
+            label: 'View',
+            icon: '👁️',
+            onClick: () => handleArticleClick(article.id)
+        },
+        {
+            label: 'Edit',
+            icon: '✏️',
+            onClick: () => handleEdit(article.id)
+        },
+        {
+            label: 'Delete',
+            icon: '🗑️',
+            variant: 'danger',
+            onClick: () => handleDelete(article.id)
+        }
+    ];
 
     return (
         <DashboardTemplate
             filterBar={
-                <div className="bg-white p-4 rounded-lg shadow">
-                    <p className="text-sm text-gray-500">
-                        Filter Bar
-                    </p>
-                </div>
+                <FilterBar
+                    filterStatus={filterStatus}
+                    onFilterChange={setFilterStatus}
+                    onAddClick={handleAddArticle}
+                />
             }
             articleList={
                 <ArticleTable
-                    articles={filteredArticles}
+                    articles={articles}
                     onArticleClick={handleArticleClick}
                     onTogglePublished={handleTogglePublished}
+                    getRowActions={getArticleActions}
                 />
+            }
+            asidePanel={
+                <AsidePanel
+                    isOpen={panelMode !== null}
+                    onClose={handleClosePanel}
+                    title={
+                        panelMode === 'create' ? 'New article' :
+                            panelMode === 'edit' ? 'Edit article' :
+                                'Article'
+                    }
+                >
+                    {(panelMode === 'create' || panelMode === 'edit') && (
+                        <ArticleForm
+                            onSubmit={handleFormSubmit}
+                            submitLabel={panelMode === 'create' ? 'SAVE' : 'UPDATE'}
+                            initialData={
+                                panelMode === 'edit' && selectedArticleId
+                                    ? getArticleById(selectedArticleId)
+                                    : undefined
+                            }
+                        />
+                    )}
+
+                    {panelMode === 'view' && (
+                        <div className="text-gray-500">
+                            Article detail view - To be implemented
+                        </div>
+                    )}
+                </AsidePanel>
             }
         />
     );

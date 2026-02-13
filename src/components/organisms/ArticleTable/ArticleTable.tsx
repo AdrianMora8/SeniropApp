@@ -1,16 +1,19 @@
-import { ArticleItem } from '../../molecules/ArticleItem';
-import type { Article } from '../../../types/article';
+import { ArticleItem } from '@/components/molecules/ArticleItem';
+import type { DropdownOption } from '@/components/atoms/Dropdown';
+import type { Article } from '@/types/article';
 
 export interface ArticleTableProps {
     articles: Article[];
     onArticleClick: (id: string) => void;
     onTogglePublished: (id: string) => void;
+    getRowActions?: (article: Article) => DropdownOption[];
 }
 
 export const ArticleTable = ({
     articles,
     onArticleClick,
-    onTogglePublished
+    onTogglePublished,
+    getRowActions
 }: ArticleTableProps) => {
     if (articles.length === 0) {
         return (
@@ -21,7 +24,7 @@ export const ArticleTable = ({
     }
 
     return (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white rounded-lg shadow overflow-visible">
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                     <tr>
@@ -47,6 +50,7 @@ export const ArticleTable = ({
                             article={article}
                             onClick={onArticleClick}
                             onTogglePublished={onTogglePublished}
+                            dropdownOptions={getRowActions?.(article)}
                         />
                     ))}
                 </tbody>

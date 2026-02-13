@@ -1,38 +1,38 @@
 import type { Article } from "../../../types/article";
 import { Switch } from "../../atoms/Switch";
-
+import { Dropdown, type DropdownOption } from "../../atoms/Dropdown";
 
 export interface ArticleItemProps {
     article: Article;
     onTogglePublished: (id: string) => void;
     onClick: (id: string) => void;
+    dropdownOptions?: DropdownOption[];
 }
-
 
 export const ArticleItem = ({
     article,
     onTogglePublished,
-    onClick
+    onClick,
+    dropdownOptions
 }: ArticleItemProps) => {
     return (
-        <tr
-            key={article.id}
-            className="cursor-pointer hover:bg-gray-100"
-            onClick={() => onClick(article.id)}
-        >
-            <td className="px-4 py-2">
-                <div className="flex items-center gap-2">
+        <tr className="hover:bg-gray-50 transition-colors">
+            <td
+                className="px-6 py-4 cursor-pointer"
+                onClick={() => onClick(article.id)}
+            >
+                <div className="text-sm font-medium text-gray-900">
                     {article.headline}
                 </div>
             </td>
-            <td className="px-4 py-2">
-                <div className="flex items-center gap-2">
+            <td className="px-6 py-4">
+                <div className="text-sm text-gray-600">
                     {article.author}
                 </div>
             </td>
-            <td className="px-4 py-2">
-                <div className="flex items-center gap-2">
-                    {new Date(article.publicationDate).toLocaleDateString()}
+            <td className="px-6 py-4">
+                <div className="text-sm text-gray-600">
+                    {article.publicationDate.split('T')[0].split('-').reverse().join('/')}
                 </div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
@@ -44,11 +44,20 @@ export const ArticleItem = ({
                     />
                 </div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <button className="text-gray-400 hover:text-gray-600">
-                    ⋮
-                </button>
+            <td className="px-6 py-4 whitespace-nowrap text-right">
+                {dropdownOptions && dropdownOptions.length > 0 && (
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <Dropdown
+                            trigger={
+                                <button className="text-gray-400 hover:text-gray-600 p-2 rounded hover:bg-gray-100 transition-colors">
+                                    ⋮
+                                </button>
+                            }
+                            options={dropdownOptions}
+                        />
+                    </div>
+                )}
             </td>
         </tr>
-    )
-}
+    );
+};

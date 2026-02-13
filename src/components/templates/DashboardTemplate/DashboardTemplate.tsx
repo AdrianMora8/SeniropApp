@@ -14,7 +14,7 @@ export const DashboardTemplate = ({
 
             <main className="max-w-7xl mx-auto px-4 py-8">
                 <div className="mb-6">
-                    {/* {filterBar} */}
+                    {filterBar}
                 </div>
 
                 <div>
@@ -22,7 +22,7 @@ export const DashboardTemplate = ({
                 </div>
             </main>
 
-            {/* {asidePanel} */}
+            {asidePanel}
         </div>
     );
 };
