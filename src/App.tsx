@@ -1,7 +1,12 @@
+import { MainLayout } from './components/layouts/MainLayout';
 import { DashboardPage } from './pages/DashboardPage';
 
 function App() {
-  return <DashboardPage />;
+    return (
+        <MainLayout>
+            <DashboardPage />
+        </MainLayout>
+    );
 }
 
 export default App;

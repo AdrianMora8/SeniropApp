@@ -47,20 +47,19 @@ export const DashboardPage = () => {
     ];
 
     return (
-        <DashboardTemplate
-            header={
-                <Header
-                    searchValue={searchQuery}
-                    onSearchChange={setSearchQuery}
-                />
-            }
-            filterBar={
-                <FilterBar
+        <>
+            <Header
+                searchValue={searchQuery}
+                onSearchChange={setSearchQuery}
+            />
+            <DashboardTemplate
+                filterBar={
+                    <FilterBar
                     filterStatus={filterStatus}
                     onFilterChange={setFilterStatus}
                     onAddClick={handleAddArticle}
-                />
-            }
+                    />
+                }
             articleList={
                 <ArticleTable
                     articles={articles}
@@ -98,6 +97,7 @@ export const DashboardPage = () => {
                     )}
                 </AsidePanel>
             }
-        />
+            />
+        </>
     );
 };
