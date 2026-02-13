@@ -1,25 +1,21 @@
-/* Importación de Google Fonts para Roboto con pesos 400 y 700 */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-/* Importación de Tailwind CSS v4 */
 @import "tailwindcss";
 
-/* Variables CSS personalizadas para el proyecto */
+
 @layer base {
   :root {
-    /* Tipografía: Fuente principal para botones e interfaz */
+    
     --font-roboto: "Roboto", sans-serif;
 
-    /* Colores de Publicación: Estados del switch de artículos */
-    --color-publish-green: #22c55e; /* Switch verde para artículos publicados */
-    --color-publish-gray: #9ca3af; /* Switch gris para artículos no publicados */
-    
-    /* Interacción de Lista: Efecto hover en filas de artículos */
-    --color-article-hover: #f3f4f6; /* Gris claro para hover */
+    --color-publish-green: #22c55e; 
+    --color-publish-gray: #9ca3af; 
 
-    /* Estados de Botón: Botón 'Save' válido/inválido */
-    --color-save-active: #2563eb; /* Azul cuando el formulario es válido */
-    --color-save-disabled: #d1d5db; /* Gris cuando el formulario es inválido */
+    --color-article-hover: #f3f4f6;
+
+    --color-save-active: #2563eb; 
+    --color-save-disabled: #d1d5db; 
   }
 }
 
