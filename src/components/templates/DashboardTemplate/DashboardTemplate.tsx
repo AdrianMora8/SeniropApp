@@ -1,22 +1,22 @@
 export interface DashboardTemplateProps {
     filterBar: React.ReactNode;
-    articleList: React.ReactNode;
+    articleTable: React.ReactNode;
     asidePanel?: React.ReactNode;
 }
 
 export const DashboardTemplate = ({
     filterBar,
-    articleList,
+    articleTable,
     asidePanel
 }: DashboardTemplateProps) => {
     return (
         <>
-            <div className="max-w-7xl mx-auto px-4 py-8">
+            <div className="p-5 max-w-auto" >
                 <div className="mb-6">
                     {filterBar}
                 </div>
                 <div>
-                    {articleList}
+                    {articleTable}
                 </div>
             </div>
             {asidePanel}

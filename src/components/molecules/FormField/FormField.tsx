@@ -6,7 +6,7 @@ export interface FormFieldProps {
 
 export const FormField = ({ label, error, children }: FormFieldProps) => {
     return (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-700">
                 {label}
             </label>

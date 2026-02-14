@@ -1,4 +1,5 @@
-import { Search } from 'lucide-react';
+import { useState } from 'react';
+import { SearchIcon } from '../../atoms/Icon';
 
 export interface SearchBarProps {
     value: string;
@@ -7,17 +8,28 @@ export interface SearchBarProps {
 }
 
 export const SearchBar = ({ value, onChange, placeholder = 'Search' }: SearchBarProps) => {
+
+    const [isFocused, setIsFocused] = useState(false);
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
+    const handleBlur = () => {
+        setIsFocused(false);
+    };
+
     return (
-        <div className="relative flex items-center">
-            <Search className="absolute left-3 h-4 w-4 text-gray-400" aria-hidden />
+        <div className="relative flex items-center p-6">
+            <SearchIcon isFocused={isFocused} className="absolute left-10" />
             <input
                 type="text"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 placeholder={placeholder}
-                className="w-full rounded-md border border-gray-300 bg-gray-50 py-2 pl-10 pr-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                aria-label="Search"
+                className="w-full rounded-md border border-gray-300 bg-white py-3 pl-10 pr-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1"
             />
         </div>
     );
 };
+

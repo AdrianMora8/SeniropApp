@@ -24,23 +24,23 @@ export const ArticleTable = ({
     }
 
     return (
-        <div className="bg-white rounded-lg shadow overflow-visible">
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+        <div className="bg-white border border-gray-200 rounded-lg">
+            <table >
+                <thead className="font-bold ">
                     <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="p-6 text-left text-black tracking-wider">
                             Article Headline
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="p-6 text-left text-black tracking-wider">
                             Author
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="p-6 text-left text-black tracking-wider">
                             Publish Date
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="p-6 text-left text-black tracking-wider">
                             Published
                         </th>
-                        <th className="px-6 py-3"></th>
+                        <th className="p-6"></th>
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">

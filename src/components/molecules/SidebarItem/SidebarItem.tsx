@@ -9,9 +9,9 @@ export const SidebarItem = ({ label, active = false, onClick }: SidebarItemProps
         <button
             type="button"
             onClick={onClick}
-            className={`w-full px-4 py-2.5 text-left text-sm text-white transition-colors ${
-                active ? 'bg-gray-700' : 'hover:bg-gray-700/50'
-            }`}
+            className={`w-full p-3 text-left text-lg text-white
+                ${active ? 'font-semibold' : ''
+                }`}
         >
             {label}
         </button>

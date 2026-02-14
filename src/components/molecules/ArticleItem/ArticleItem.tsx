@@ -1,13 +1,14 @@
 import type { Article } from "../../../types/article";
 import { Switch } from "../../atoms/Switch";
-import { Dropdown, type DropdownOption } from "../../atoms/Dropdown";
-
+import { Dropdown, type DropdownOption } from "../../atoms/Dropdown"
 export interface ArticleItemProps {
     article: Article;
     onTogglePublished: (id: string) => void;
     onClick: (id: string) => void;
     dropdownOptions?: DropdownOption[];
 }
+
+import { DotsIcon } from "../../atoms/Icon";
 
 export const ArticleItem = ({
     article,
@@ -16,26 +17,26 @@ export const ArticleItem = ({
     dropdownOptions
 }: ArticleItemProps) => {
     return (
-        <tr className="hover:bg-gray-50 transition-colors">
+        <tr className="hover:bg-gray-50 transition-colors cursor-pointer group">
             <td
-                className="px-6 py-4 cursor-pointer"
+                className="w-2/5 p-6"
                 onClick={() => onClick(article.id)}
             >
-                <div className="text-sm font-medium text-gray-900">
+                <div className="font-normal text-gray-900">
                     {article.headline}
                 </div>
             </td>
-            <td className="px-6 py-4">
-                <div className="text-sm text-gray-600">
+            <td className="w-1/5 p-6" onClick={() => onClick(article.id)}>
+                <div className="font-normal text-gray-600">
                     {article.author}
                 </div>
             </td>
-            <td className="px-6 py-4">
-                <div className="text-sm text-gray-600">
+            <td className="w-1/5 p-6" onClick={() => onClick(article.id)}>
+                <div className="font-normal text-gray-600">
                     {article.publicationDate.split('T')[0].split('-').reverse().join('/')}
                 </div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
+            <td className="w-1/5 p-6">
                 <div onClick={(e) => e.stopPropagation()}>
                     <Switch
                         checked={article.published}
@@ -44,13 +45,13 @@ export const ArticleItem = ({
                     />
                 </div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-right">
+            <td className="w-1/10 p-6 text-right">
                 {dropdownOptions && dropdownOptions.length > 0 && (
-                    <div onClick={(e) => e.stopPropagation()}>
+                    <div onClick={(e) => e.stopPropagation()} className="flex justify-end">
                         <Dropdown
                             trigger={
-                                <button className="text-gray-400 hover:text-gray-600 p-2 rounded hover:bg-gray-100 transition-colors">
-                                    ⋮
+                                <button className="flex items-center justify-center p-2 hover:bg-gray-200 rounded-full transition-all cursor-pointer border-none bg-transparent outline-none">
+                                    <DotsIcon className="text-gray-500 group-hover:text-gray-700" />
                                 </button>
                             }
                             options={dropdownOptions}
@@ -61,3 +62,8 @@ export const ArticleItem = ({
         </tr>
     );
 };
+
+
+
+
+

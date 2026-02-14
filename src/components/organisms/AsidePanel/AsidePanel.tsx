@@ -20,13 +20,13 @@ export const AsidePanel = ({ isOpen, onClose, title, children }: AsidePanelProps
                     <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
                     <button
                         onClick={onClose}
-                        className="text-gray-400 hover:text-gray-600 transition-colors"
+                        className="text-blue-500 hover:text-blue-600 transition-colors"
                     >
                         ✕ CLOSE
                     </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-6">
+                <div className="flex-1 p-6 flex flex-col" >
                     {children}
                 </div>
             </div>

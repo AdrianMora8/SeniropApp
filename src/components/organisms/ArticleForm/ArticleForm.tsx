@@ -37,7 +37,7 @@ export const ArticleForm = ({
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
             <form.Field
                 name="headline"
                 validators={{
@@ -138,17 +138,15 @@ export const ArticleForm = ({
 
             <form.Field name="published">
                 {(field) => (
-                    <div className="flex items-center gap-2 pt-2">
-                        <Switch
-                            checked={field.state.value}
-                            onChange={(checked) => field.handleChange(checked)}
-                            label="Publish"
-                        />
-                    </div>
+                    <Switch
+                        checked={field.state.value}
+                        onChange={(checked) => field.handleChange(checked)}
+                        label="Publish"
+                    />
                 )}
             </form.Field>
 
-            <div className="flex justify-end pt-4">
+            <div className="flex justify-end">
                 <Button variant={isFormValid ? 'active' : 'disabled'}>
                     {submitLabel}
                 </Button>
