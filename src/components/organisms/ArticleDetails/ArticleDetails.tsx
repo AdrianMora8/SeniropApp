@@ -1,15 +1,13 @@
 import type { Article } from '@/types/article';
 import { Switch } from '@/components/atoms/Switch';
 import { Button } from '@/components/atoms/Button';
+import { formatDate } from '@/utils/dateFormatter';
 
 export interface ArticleDetailsProps {
     article: Article | undefined;
     onTogglePublished?: () => void;
     onEdit?: () => void;
 }
-
-const formatDate = (dateStr: string) =>
-    dateStr.split('T')[0].split('-').reverse().join('/');
 
 export const ArticleDetails = ({
     article,

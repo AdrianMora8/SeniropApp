@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import type { Article } from '../../types/article';
-import { MOCK_ARTICLES } from '../../store/constants';
+import { MOCK_ARTICLES } from '@/store/constants';
+import type { Article } from '@/types/article';
 
 export const useArticles = () => {
     const [articles, setArticles] = useState<Article[]>(() => {

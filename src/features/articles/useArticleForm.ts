@@ -1,10 +1,7 @@
+import type { ArticleFormData } from '@/features/articles/validation';
+import { articleSchema } from '@/features/articles/validation';
+import { formatDate } from '@/utils/dateFormatter';
 import { useForm } from '@tanstack/react-form';
-import type { ArticleFormData } from './validation';
-
-const formatDateForInput = (dateStr: string): string => {
-    if (!dateStr) return '';
-    return dateStr.split('T')[0];
-};
 
 export const useArticleForm = (initialData?: Partial<ArticleFormData>) => {
     const form = useForm({
@@ -13,12 +10,19 @@ export const useArticleForm = (initialData?: Partial<ArticleFormData>) => {
             author: initialData?.author || '',
             body: initialData?.body || '',
             publicationDate: initialData?.publicationDate
-                ? formatDateForInput(initialData.publicationDate)
+                ? formatDate(initialData.publicationDate)
                 : '',
             published: initialData?.published || false,
         },
         onSubmit: async ({ value }) => {
-            console.log('Form submitted:', value);
+            const result = articleSchema.safeParse(value);
+
+            if (!result.success) {
+                console.error('Validation errors:', result.error.flatten());
+                throw new Error('Validation failed');
+            }
+
+            console.log('Form submitted with validated data:', result.data);
         },
     });
 

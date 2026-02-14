@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
-import { useArticles } from '../../features/articles/useArticles';
-import type { ArticleFormData } from '../../features/articles/validation';
+import { useState, useMemo, useEffect } from 'react';
+import { useArticles } from '@/features/articles/useArticles';
+import type { ArticleFormData } from '@/features/articles/validation';
 
 export const useDashboardLogic = () => {
     const { articles, togglePublished, deleteArticle, createArticle, updateArticle, getArticleById } = useArticles();
@@ -9,6 +9,9 @@ export const useDashboardLogic = () => {
 
     const [panelMode, setPanelMode] = useState<'create' | 'edit' | 'view' | null>(null);
     const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
 
     const filteredArticles = useMemo(() => {
         return articles.filter((article) => {
@@ -24,6 +27,15 @@ export const useDashboardLogic = () => {
             return matchesSearch && matchesFilter;
         });
     }, [articles, searchQuery, filterStatus]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, filterStatus]);
+
+    const paginatedArticles = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        return filteredArticles.slice(startIndex, startIndex + itemsPerPage);
+    }, [filteredArticles, currentPage, itemsPerPage]);
 
     const handleArticleClick = (id: string) => {
         setSelectedArticleId(id);
@@ -61,20 +73,25 @@ export const useDashboardLogic = () => {
     };
 
     return {
-        articles: filteredArticles,
-        searchQuery,
-        setSearchQuery,
-        filterStatus,
-        setFilterStatus,
-        panelMode,
+        totalArticles: filteredArticles.length,
+        articles: paginatedArticles,
         selectedArticleId,
-        getArticleById,
+        itemsPerPage,
+        filterStatus,
+        currentPage,
+        searchQuery,
+        panelMode,
+        handleTogglePublished: togglePublished,
         handleArticleClick,
-        handleEdit,
-        handleDelete,
         handleAddArticle,
         handleClosePanel,
         handleFormSubmit,
-        handleTogglePublished: togglePublished
+        setItemsPerPage,
+        setFilterStatus,
+        setCurrentPage,
+        setSearchQuery,
+        getArticleById,
+        handleDelete,
+        handleEdit,
     };
 };

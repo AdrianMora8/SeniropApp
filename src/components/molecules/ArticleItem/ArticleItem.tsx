@@ -1,14 +1,15 @@
 import type { Article } from "../../../types/article";
 import { Switch } from "../../atoms/Switch";
-import { Dropdown, type DropdownOption } from "../../atoms/Dropdown"
+import { Dropdown, type DropdownOption } from "../../atoms/Dropdown";
+import { DotsIcon } from "../../atoms/icons";
+import { formatDate } from "../../../utils/dateFormatter";
+
 export interface ArticleItemProps {
     article: Article;
     onTogglePublished: (id: string) => void;
     onClick: (id: string) => void;
     dropdownOptions?: DropdownOption[];
 }
-
-import { DotsIcon } from "../../atoms/Icon";
 
 export const ArticleItem = ({
     article,
@@ -17,9 +18,9 @@ export const ArticleItem = ({
     dropdownOptions
 }: ArticleItemProps) => {
     return (
-        <tr className="hover:bg-gray-50 transition-colors cursor-pointer group">
+        <tr className="hover:bg-gray-50 transition-colors cursor-pointer">
             <td
-                className="w-2/5 p-6"
+                className="w-2/5 h-20 p-6"
                 onClick={() => onClick(article.id)}
             >
                 <div className="font-normal text-gray-900">
@@ -33,7 +34,7 @@ export const ArticleItem = ({
             </td>
             <td className="w-1/5 p-6" onClick={() => onClick(article.id)}>
                 <div className="font-normal text-gray-600">
-                    {article.publicationDate.split('T')[0].split('-').reverse().join('/')}
+                    {formatDate(article.publicationDate)}
                 </div>
             </td>
             <td className="w-1/5 p-6">

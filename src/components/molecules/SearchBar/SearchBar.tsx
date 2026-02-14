@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SearchIcon } from '../../atoms/Icon';
+import { SearchIcon } from '../../atoms/icons';
 
 export interface SearchBarProps {
     value: string;

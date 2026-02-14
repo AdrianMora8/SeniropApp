@@ -7,6 +7,7 @@ import { DatePicker } from '../../atoms/DatePicker';
 import { Switch } from '../../atoms/Switch';
 import { Button } from '../../atoms/Button';
 import { useArticleForm } from '../../../features/articles/useArticleForm';
+import { articleSchema } from '../../../features/articles/validation';
 import type { ArticleFormData } from '../../../features/articles/validation';
 
 export interface ArticleFormProps {
@@ -31,8 +32,12 @@ export const ArticleForm = ({
         e.preventDefault();
         e.stopPropagation();
 
-        if (isFormValid) {
-            onSubmit(form.state.values as ArticleFormData);
+        const result = articleSchema.safeParse(form.state.values);
+
+        if (result.success) {
+            onSubmit(result.data);
+        } else {
+            console.error('Validation errors:', result.error.flatten());
         }
     };
 
@@ -41,10 +46,10 @@ export const ArticleForm = ({
             <form.Field
                 name="headline"
                 validators={{
-                    onChange: ({ value }) =>
-                        !value ? 'Headline is required' :
-                            value.length > 200 ? 'Headline must be at most 200 characters' :
-                                undefined
+                    onChange: ({ value }) => {
+                        const result = articleSchema.shape.headline.safeParse(value);
+                        return result.success ? undefined : result.error.issues[0]?.message;
+                    }
                 }}
             >
                 {(field) => (
@@ -66,10 +71,10 @@ export const ArticleForm = ({
             <form.Field
                 name="author"
                 validators={{
-                    onChange: ({ value }) =>
-                        !value ? 'Author is required' :
-                            value.length > 100 ? 'Author must be at most 100 characters' :
-                                undefined
+                    onChange: ({ value }) => {
+                        const result = articleSchema.shape.author.safeParse(value);
+                        return result.success ? undefined : result.error.issues[0]?.message;
+                    }
                 }}
             >
                 {(field) => (
@@ -91,10 +96,10 @@ export const ArticleForm = ({
             <form.Field
                 name="body"
                 validators={{
-                    onChange: ({ value }) =>
-                        !value ? 'Body is required' :
-                            value.length > 5000 ? 'Body must be at most 5000 characters' :
-                                undefined
+                    onChange: ({ value }) => {
+                        const result = articleSchema.shape.body.safeParse(value);
+                        return result.success ? undefined : result.error.issues[0]?.message;
+                    }
                 }}
             >
                 {(field) => (
@@ -116,10 +121,10 @@ export const ArticleForm = ({
             <form.Field
                 name="publicationDate"
                 validators={{
-                    onChange: ({ value }) =>
-                        !value ? 'Publication date is required' :
-                            isNaN(Date.parse(value)) ? 'Invalid date format' :
-                                undefined
+                    onChange: ({ value }) => {
+                        const result = articleSchema.shape.publicationDate.safeParse(value);
+                        return result.success ? undefined : result.error.issues[0]?.message;
+                    }
                 }}
             >
                 {(field) => (

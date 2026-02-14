@@ -12,10 +12,10 @@ const NAV_ITEMS = [
 
 export const Sidebar = () => {
     return (
-        <aside className="flex w-68 shrink-0 flex-col bg-[#424242] min-h-screen">
-            <div className="flex flex-1 flex-col gap-15 p-10">
+        <aside className="flex h-full w-68 shrink-0 flex-col bg-[#424242]">
+            <div className="flex flex-1 flex-col gap-15 p-10 overflow-auto">
                 <div>
-                    <img src={logo} alt="" className='w-full' />
+                    <img src={logo} alt="Senirop Logo" className='w-full' />
                 </div>
                 {NAV_ITEMS.map((item) => (
                     <SidebarItem

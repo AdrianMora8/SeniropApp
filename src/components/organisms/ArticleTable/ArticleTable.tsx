@@ -1,9 +1,15 @@
 import { ArticleItem } from '@/components/molecules/ArticleItem';
+import { Pagination } from '@/components/molecules/Pagination';
 import type { DropdownOption } from '@/components/atoms/Dropdown';
 import type { Article } from '@/types/article';
 
 export interface ArticleTableProps {
     articles: Article[];
+    totalArticles: number;
+    currentPage: number;
+    itemsPerPage: number;
+    onPageChange: (page: number) => void;
+    onItemsPerPageChange: (itemsPerPage: number) => void;
     onArticleClick: (id: string) => void;
     onTogglePublished: (id: string) => void;
     getRowActions?: (article: Article) => DropdownOption[];
@@ -11,6 +17,11 @@ export interface ArticleTableProps {
 
 export const ArticleTable = ({
     articles,
+    totalArticles,
+    currentPage,
+    itemsPerPage,
+    onPageChange,
+    onItemsPerPageChange,
     onArticleClick,
     onTogglePublished,
     getRowActions
@@ -25,7 +36,7 @@ export const ArticleTable = ({
 
     return (
         <div className="bg-white border border-gray-200 rounded-lg">
-            <table >
+            <table>
                 <thead className="font-bold ">
                     <tr>
                         <th className="p-6 text-left text-black tracking-wider">
@@ -55,6 +66,13 @@ export const ArticleTable = ({
                     ))}
                 </tbody>
             </table>
+            <Pagination
+                totalItems={totalArticles}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                onPageChange={onPageChange}
+                onItemsPerPageChange={onItemsPerPageChange}
+            />
         </div>
     );
 };
