@@ -25,8 +25,16 @@ export const articleSchema = z.object({
             return isValid(parsed);
         }, {
             message: 'Invalid date format (DD/MM/YYYY)',
+        })
+        .refine((date) => {
+            const parsed = parse(date, 'dd/MM/yyyy', new Date());
+            // Check if date is not in the future (compare only dates, ignore time)
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return parsed <= today;
+        }, {
+            message: 'Date cannot be in the future',
         }),
-
 
     published: z.boolean(),
 });

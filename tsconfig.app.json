@@ -29,5 +29,5 @@
     "noFallthroughCasesInSwitch": true,
     "ignoreDeprecations": "5.0"
   },
-  "include": ["src", "vite-env.d.ts"]
+  "include": ["src"]
 }
