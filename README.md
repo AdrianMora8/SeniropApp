@@ -68,7 +68,7 @@ Detailed documentation is located in the `docs/` folder:
 1.  **Clone the repository**:
 
     ```bash
-    git clone <repo-url>
+    git clone <https://github.com/AdrianMora8/SeniropApp>
     cd SeniropApp
     ```
 
@@ -76,8 +76,6 @@ Detailed documentation is located in the `docs/` folder:
 
     ```bash
     npm install
-    # or
-    pnpm install
     ```
 
 3.  **Start development server**:
