@@ -1,12 +1,12 @@
-import { DashboardTemplate } from '@/components/templates/DashboardTemplate';
-import { ArticleTable } from '@/components/organisms/ArticleTable';
-import { FilterBar } from '@/components/molecules/FilterBar';
-import { AsidePanel } from '@/components/organisms/AsidePanel';
-import { ArticleForm } from '@/components/organisms/ArticleForm';
-import { ArticleDetails } from '@/components/organisms/ArticleDetails';
-import type { DropdownOption } from '@/components/atoms/Dropdown';
+import { DashboardTemplate } from '@/features/dashboard/presentation/templates/DashboardTemplate';
+import { ArticleTable } from '@/features/articles/presentation/components/ArticleTable';
+import { FilterBar } from '@/shared/components/molecules/FilterBar';
+import { AsidePanel } from '@/shared/components/organisms/AsidePanel';
+import { ArticleForm } from '@/features/articles/presentation/components/ArticleForm';
+import { ArticleDetails } from '@/features/articles/presentation/components/ArticleDetails';
+import type { DropdownOption } from '@/shared/components/atoms/Dropdown';
 import type { Article } from '@/types/article';
-import { ViewIcon, EditIcon, DeleteIcon } from '@/components/atoms/icons';
+import { ViewIcon, EditIcon, DeleteIcon } from '@/shared/icons';
 import { useDashboardLogic } from '@/pages/DashboardPage/useDashboardLogic';
 
 export const DashboardPage = () => {
@@ -88,15 +88,11 @@ export const DashboardPage = () => {
                 <AsidePanel
                     isOpen={panelMode !== null}
                     onClose={handleClosePanel}
-                    title={
-                        panelMode === 'create' ? 'New article' :
-                            panelMode === 'edit' ? 'Edit article' :
-                                'Article'
-                    }
                 >
                     {(panelMode === 'create' || panelMode === 'edit') && (
                         <ArticleForm
                             onSubmit={handleFormSubmit}
+                            title={panelMode === 'create' ? 'New article' : 'Edit article'}
                             submitLabel={panelMode === 'create' ? 'SAVE' : 'UPDATE'}
                             initialData={
                                 panelMode === 'edit' && selectedArticleId

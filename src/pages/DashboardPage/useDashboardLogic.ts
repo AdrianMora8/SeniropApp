@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useArticles } from '@/features/articles/useArticles';
+import { useArticles } from '@/features/articles/application/hooks/useArticles';
 import type { ArticleFormData } from '@/features/articles/validation';
 
 export const useDashboardLogic = () => {

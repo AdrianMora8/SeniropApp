@@ -23,7 +23,7 @@ export const articleSchema = z.object({
             message: 'Invalid date format',
         }),
 
-    published: z.boolean().default(false),
+    published: z.boolean(),
 });
 
 export type ArticleFormData = z.infer<typeof articleSchema>;
