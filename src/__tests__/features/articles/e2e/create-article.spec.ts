@@ -28,7 +28,7 @@ test('should create a new article successfully', async ({ page }) => {
     await saveButton.click();
 
     await expect(
-        page.getByText('Test Article Headline')
+        page.getByRole('cell', { name: 'Test Article Headline' })
     ).toBeVisible();
 
 });

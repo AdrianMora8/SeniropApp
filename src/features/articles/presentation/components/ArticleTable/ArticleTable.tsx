@@ -1,10 +1,16 @@
+
 import { Pagination } from '@/shared/components/molecules/Pagination';
 import type { DropdownOption } from '@/shared/components/atoms/Dropdown';
 import type { Article } from '@/features/articles/types/article';
-import { ArticleItem } from '../ArticleItem';
+import { ArticleTableView } from '../ArticleViews/ArticleTableView';
+import { ArticleCardListView } from '../ArticleViews/ArticleCardListView';
+import { ArticleEmptyState } from '../ArticleEmptyState/ArticleEmptyState';
 
 export interface ArticleTableProps {
     articles: Article[];
+    mobileArticles?: Article[];
+    hasMoreMobile?: boolean;
+    onLoadMore?: () => void;
     totalArticles: number;
     currentPage: number;
     itemsPerPage: number;
@@ -17,6 +23,9 @@ export interface ArticleTableProps {
 
 export const ArticleTable = ({
     articles,
+    mobileArticles,
+    hasMoreMobile,
+    onLoadMore,
     totalArticles,
     currentPage,
     itemsPerPage,
@@ -26,47 +35,31 @@ export const ArticleTable = ({
     onTogglePublished,
     getRowActions
 }: ArticleTableProps) => {
-    if (articles.length === 0) {
-        return (
-            <div className="text-center py-12">
-                <p className="text-[rgb(var(--color-text-muted))]">No articles found</p>
-            </div>
-        );
+    const displayMobileArticles = mobileArticles || articles;
+
+    if (articles.length === 0 && displayMobileArticles.length === 0) {
+        return <ArticleEmptyState />;
     }
 
     return (
-        <div className="bg-[rgb(var(--color-bg-main))] border border-[rgb(var(--color-border-subtle))] rounded-lg overflow-x-auto">
-            <table className="min-w-5xl w-full">
-                <thead className="font-bold ">
-                    <tr>
-                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider w-2/5">
-                            Article Headline
-                        </th>
-                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider w-1/5">
-                            Author
-                        </th>
-                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider w-1/5">
-                            Publish Date
-                        </th>
-                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider w-1/5">
-                            Published
-                        </th>
-                        <th className="p-6"></th>
-                    </tr>
-                </thead>
-                <tbody className="bg-[rgb(var(--color-bg-main))] divide-y divide-[rgb(var(--color-border-subtle))]">
-                    {articles.map((article) => (
-                        <ArticleItem
-                            key={article.id}
-                            article={article}
-                            onClick={onArticleClick}
-                            onTogglePublished={onTogglePublished}
-                            dropdownOptions={getRowActions?.(article)}
-                        />
-                    ))}
-                </tbody>
-            </table>
-            <div className="sticky left-0">
+        <div className="flex flex-col gap-4">
+            <ArticleTableView
+                articles={articles}
+                onArticleClick={onArticleClick}
+                onTogglePublished={onTogglePublished}
+                getRowActions={getRowActions}
+            />
+
+            <ArticleCardListView
+                articles={displayMobileArticles}
+                onArticleClick={onArticleClick}
+                onTogglePublished={onTogglePublished}
+                getRowActions={getRowActions}
+                hasMore={hasMoreMobile}
+                onLoadMore={onLoadMore}
+            />
+
+            <div className="sticky left-0 bg-[rgb(var(--color-bg-main))] border md:border-t-0 border-[rgb(var(--color-border-subtle))] rounded-lg md:rounded-t-none p-2 md:p-0 md:block hidden">
                 <Pagination
                     totalItems={totalArticles}
                     currentPage={currentPage}

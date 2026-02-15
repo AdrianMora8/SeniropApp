@@ -44,10 +44,10 @@ describe('ArticleTable', () => {
     it('renders articles correctly', () => {
         render(<ArticleTable {...defaultProps} />);
 
-        expect(screen.getByText('Test Article 1')).toBeInTheDocument();
-        expect(screen.getByText('Test Article 2')).toBeInTheDocument();
-        expect(screen.getByText('John Doe')).toBeInTheDocument();
-        expect(screen.getByText('Jane Smith')).toBeInTheDocument();
+        expect(screen.getAllByText('Test Article 1').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('Test Article 2').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('John Doe').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('Jane Smith').length).toBeGreaterThan(0);
     });
 
     it('calls onArticleClick when article headline is clicked', async () => {
@@ -60,9 +60,10 @@ describe('ArticleTable', () => {
                 onArticleClick={onArticleClick}
             />
         );
+        const articleHeadlines = screen.getAllByText('Test Article 1');
+        expect(articleHeadlines.length).toBeGreaterThan(0);
 
-        // Click on the headline text (which is inside a td with onClick)
-        await user.click(screen.getByText('Test Article 1'));
+        await user.click(articleHeadlines[0]);
 
         expect(onArticleClick).toHaveBeenCalledWith('1');
     });

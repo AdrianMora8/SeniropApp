@@ -24,7 +24,7 @@ test('should edit an existing article successfully', async ({ page }) => {
     await updateButton.click();
 
     await expect(
-        page.getByText('E2E Updated Article')
+        page.getByRole('cell', { name: 'E2E Updated Article' })
     ).toBeVisible();
 
 });

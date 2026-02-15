@@ -14,7 +14,7 @@ export const AsidePanel = ({ isOpen, onClose, children }: AsidePanelProps) => {
                 onClick={onClose}
             />
 
-            <div className="fixed right-0 top-0 h-full w-130 bg-[rgb(var(--color-bg-main))] shadow-xl z-50 flex flex-col overflow-hidden">
+            <div className="fixed right-0 top-0 h-full w-full md:w-130 bg-[rgb(var(--color-bg-main))] shadow-xl z-50 flex flex-col overflow-hidden transition-all duration-300">
                 <div className="flex justify-end p-6">
                     <button
                         onClick={onClose}

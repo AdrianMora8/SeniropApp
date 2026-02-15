@@ -2,6 +2,7 @@ import type { Article } from '@/features/articles/types/article';
 import { Switch } from '@/shared/components/atoms/Switch';
 import { Button } from '@/shared/components/atoms/Button';
 import { formatDate } from '@/shared/utils/dateFormatter';
+import { ArticleEmptyState } from '../ArticleEmptyState';
 
 export interface ArticleDetailsProps {
     article: Article | undefined;
@@ -15,9 +16,7 @@ export const ArticleDetails = ({
 }: ArticleDetailsProps) => {
 
     if (!article) {
-        return (
-            <p className="text-[rgb(var(--color-text-muted))]">Article not found</p>
-        );
+        return <ArticleEmptyState />;
     }
 
     return (

@@ -28,7 +28,6 @@ export const articleSchema = z.object({
         })
         .refine((date) => {
             const parsed = parse(date, 'dd/MM/yyyy', new Date());
-            // Check if date is not in the future (compare only dates, ignore time)
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             return parsed <= today;

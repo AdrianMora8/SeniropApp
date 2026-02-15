@@ -1,10 +1,19 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from '@/shared/components/organisms/Sidebar';
+import { SidebarTrigger } from '@/shared/components/molecules/SidebarTrigger';
 
 export const MainLayout = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
     return (
-        <div className="h-screen flex overflow-hidden">
-            <Sidebar />
+        <div className="h-screen flex overflow-hidden flex-col md:flex-row">
+            <SidebarTrigger onTrigger={() => setIsSidebarOpen(true)} />
+
+            <Sidebar
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
+            />
 
             <div className="flex-1 flex flex-col overflow-hidden min-w-0">
                 <main className="flex-1 overflow-auto bg-[rgb(var(--color-bg-secondary))]">

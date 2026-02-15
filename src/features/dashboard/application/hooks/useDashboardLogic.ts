@@ -2,58 +2,49 @@ import { useState, useMemo, useEffect } from 'react';
 import { useArticles } from '@/features/articles/application/hooks/useArticles';
 import { articleService } from '@/features/articles/domain/articleService';
 import type { ArticleFormData } from '@/features/articles/validation';
-import { DASHBOARD_PANEL_MODES, type DashboardPanelMode } from '../constants/dashboardConstants';
+import { DASHBOARD_PANEL_MODES } from '../constants/dashboardConstants';
+import { useDashboardPagination } from './useDashboardPagination';
+import { useDashboardSelection } from './useDashboardSelection';
 
 export const useDashboardLogic = () => {
     const { articles, togglePublished, deleteArticle, createArticle, updateArticle, getArticleById } = useArticles();
     const [searchQuery, setSearchQuery] = useState('');
     const [filterStatus, setFilterStatus] = useState<'all' | 'published' | 'unpublished'>('all');
 
-    const [panelMode, setPanelMode] = useState<DashboardPanelMode | null>(null);
-    const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(5);
-
     const filteredArticles = useMemo(() => {
         const searched = articleService.searchArticles(articles, searchQuery);
         return articleService.filterArticles(searched, filterStatus);
     }, [articles, searchQuery, filterStatus]);
 
+    const {
+        currentPage,
+        itemsPerPage,
+        paginatedArticles,
+        mobileArticles,
+        hasMoreMobile,
+        setCurrentPage,
+        setItemsPerPage,
+        handleLoadMore,
+        resetPagination
+    } = useDashboardPagination({ articles: filteredArticles });
+
+    const {
+        panelMode,
+        selectedArticleId,
+        handleArticleClick,
+        handleEdit,
+        handleAddArticle,
+        handleClosePanel
+    } = useDashboardSelection();
 
     useEffect(() => {
-        setCurrentPage(1);
+        resetPagination();
     }, [searchQuery, filterStatus]);
 
-    const paginatedArticles = useMemo(() => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        return filteredArticles.slice(startIndex, startIndex + itemsPerPage);
-    }, [filteredArticles, currentPage, itemsPerPage]);
-
-    const handleArticleClick = (id: string) => {
-        setSelectedArticleId(id);
-        setPanelMode(DASHBOARD_PANEL_MODES.VIEW);
-    };
-
-    const handleEdit = (id: string) => {
-        setSelectedArticleId(id);
-        setPanelMode(DASHBOARD_PANEL_MODES.EDIT);
-    };
-
     const handleDelete = (id: string) => {
-        if (window.confirm('¿Eliminar este artículo?')) {
+        if (window.confirm('Delete this article?')) {
             deleteArticle(id);
         }
-    };
-
-    const handleAddArticle = () => {
-        setSelectedArticleId(null);
-        setPanelMode(DASHBOARD_PANEL_MODES.CREATE);
-    };
-
-    const handleClosePanel = () => {
-        setPanelMode(null);
-        setSelectedArticleId(null);
     };
 
     const handleFormSubmit = (data: ArticleFormData) => {
@@ -68,6 +59,9 @@ export const useDashboardLogic = () => {
     return {
         totalArticles: filteredArticles.length,
         articles: paginatedArticles,
+        mobileArticles,
+        hasMoreMobile,
+        handleLoadMore,
         selectedArticleId,
         itemsPerPage,
         filterStatus,

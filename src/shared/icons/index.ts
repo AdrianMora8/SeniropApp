@@ -6,3 +6,4 @@ export * from './DeleteIcon';
 export * from './CalendarIcon';
 export * from './ChevronIcons';
 export * from './types';
+export * from './MenuIcon';

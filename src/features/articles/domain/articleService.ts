@@ -44,22 +44,14 @@ export const searchArticles = (articles: Article[], query: string): Article[] =>
     );
 };
 
-export const validateArticle = (article: Partial<ArticleFormData>): boolean => {
-    return !!(
-        article.headline &&
-        article.author &&
-        article.body &&
-        article.publicationDate
-    );
-};
 
-// Also export as object for convenience in application layer
+
 export const articleService = {
     createArticle,
     updateArticle,
     togglePublished,
     filterArticles,
     searchArticles,
-    validateArticle,
+
 };
 

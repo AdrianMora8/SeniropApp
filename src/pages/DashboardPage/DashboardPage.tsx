@@ -4,11 +4,9 @@ import { FilterBar } from '@/shared/components/molecules/FilterBar';
 import { AsidePanel } from '@/shared/components/organisms/AsidePanel';
 import { ArticleForm } from '@/features/articles/presentation/components/ArticleForm';
 import { ArticleDetails } from '@/features/articles/presentation/components/ArticleDetails';
-import type { DropdownOption } from '@/shared/components/atoms/Dropdown';
-import type { Article } from '@/features/articles/types/article';
-import { ViewIcon, EditIcon, DeleteIcon } from '@/shared/icons';
 import { useDashboardLogic } from '@/features/dashboard/application/hooks/useDashboardLogic';
 import { DASHBOARD_PANEL_MODES } from '@/features/dashboard/application/constants/dashboardConstants';
+import { useArticleActions } from '@/features/dashboard/presentation/hooks/useArticleActions';
 
 export const DashboardPage = () => {
     const {
@@ -31,35 +29,17 @@ export const DashboardPage = () => {
         handleAddArticle,
         handleClosePanel,
         handleFormSubmit,
-        handleTogglePublished
+        handleTogglePublished,
+        mobileArticles,
+        hasMoreMobile,
+        handleLoadMore
     } = useDashboardLogic();
 
-    const getArticleActions = (article: Article): DropdownOption[] => [
-        {
-            label: 'View',
-            icon: <ViewIcon
-                size={16}
-                className="text-[rgb(var(--color-text-tertiary))]"
-            />,
-            onClick: () => handleArticleClick(article.id)
-        },
-        {
-            label: 'Edit',
-            icon: <EditIcon
-                size={16}
-                className="text-[rgb(var(--color-text-tertiary))]"
-            />,
-            onClick: () => handleEdit(article.id)
-        },
-        {
-            label: 'Delete',
-            icon: <DeleteIcon
-                size={16}
-                className="text-[rgb(var(--color-text-tertiary))]"
-            />,
-            onClick: () => handleDelete(article.id)
-        }
-    ];
+    const { getArticleActions } = useArticleActions({
+        onView: (id) => handleArticleClick(id),
+        onEdit: (id) => handleEdit(id),
+        onDelete: (id) => handleDelete(id)
+    });
 
     return (
         <DashboardTemplate
@@ -75,6 +55,9 @@ export const DashboardPage = () => {
             articleTable={
                 <ArticleTable
                     articles={articles}
+                    mobileArticles={mobileArticles}
+                    hasMoreMobile={hasMoreMobile}
+                    onLoadMore={handleLoadMore}
                     totalArticles={totalArticles}
                     currentPage={currentPage}
                     itemsPerPage={itemsPerPage}

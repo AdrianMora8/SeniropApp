@@ -109,6 +109,7 @@ Simulates the "Create New Article" flow.
 3.  Fills all inputs (Text and Dates).
 4.  Clicks "SAVE".
 5.  **Assertion**: Expects the new article headline to be visible in the table.
+    - _Note_: Uses `page.getByRole('cell', { name: ... })` to strictly target the desktop table cell, avoiding ambiguity with the mobile card view.
 
 ### File: `edit-article.spec.ts`
 
@@ -118,7 +119,7 @@ Simulates the "Edit Existing Article" flow.
 2.  Clicks the "UPDATE/EDIT" button.
 3.  Clears the title input and types a new one.
 4.  Saves changes.
-5.  **Assertion**: Verifies the updated text appears in the list.
+5.  **Assertion**: Verifies the updated text appears in the list using strict role-based locators.
 
 ### File: `view-article.spec.ts`
 

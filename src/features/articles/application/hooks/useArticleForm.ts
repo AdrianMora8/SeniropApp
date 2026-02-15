@@ -22,7 +22,7 @@ export const useArticleForm = (initialData?: Partial<ArticleFormData>) => {
                 throw new Error('Validation failed');
             }
 
-            console.log('Form submitted with validated data:', result.data);
+
         },
         validators: {
             onChange: articleSchema,

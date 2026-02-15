@@ -51,13 +51,22 @@ This is where business logic lives.
   - `domain/`: Data contracts. Using TypeScript + Zod here allows for a "Single Source of Truth" for validations.
   - `presentation/components/`: Components that only make sense within the context of articles.
 - **`features/dashboard/`**: Main panel module.
-  - `presentation/templates/`: Contains `DashboardTemplate`. This component receives `header`, `sidebar`, `content` as props (slots), following the **Inversion of Control (IoC)** principle, making it highly testable and flexible.
+  - `application/hooks/`: Contains specialized hooks for dashboard logic, split by responsibility:
+    - `useDashboardLogic.ts`: Main entry point that orchestrates other hooks.
+    - `useDashboardPagination.ts`: Manages pagination state and logic.
+    - `useDashboardSelection.ts`: Handles article selection and row actions.
+  - `presentation/hooks/`: Contains hooks specific to UI implementation details (view helpers).
+    - `useArticleActions.tsx`: Generates UI configuration objects (icons, labels) for table actions. Separated from application logic as it deals with JSX/View concerns.
+  - `presentation/templates/`: Contains `DashboardTemplate`. This component receives `header`, `sidebar`, `content`, `articleTable`, `filterBar`, `asidePanel` as props (slots).
+  - `presentation/components/`:
+    - `ArticleTable/`: Desktop view for articles.
+    - `ArticleViews/`: Contains `ArticleCardListView` for mobile responsive view.
 
 ### `src/pages/` (The Router)
 
 This layer is thin. Its only responsibility is to connect a Route (URL) with a Feature.
 
-- _Why it exists_: Decouples Routing from business logic. `DashboardPage.tsx` acts as a "Controller": it fetches data using `application` hooks and passes it to `presentation` templates.
+- _Why it exists_: Decouples Routing from business logic. `DashboardPage.tsx` acts as a "Controller": it fetches data using `application` hooks, configures UI using `presentation` hooks, and passes everything to `presentation` templates.
 
 ### `src/shared/` (Common Code)
 
@@ -74,6 +83,22 @@ Code that belongs to no specific domain.
 
 - **Single Responsibility Principle (SRP)**: Each component or hook has a single reason to change. `ArticleForm` only handles form UI, `useArticleForm` handles its logic.
 - **Dependency Inversion**: High-level components (`DashboardPage`) inject dependencies (data and functions) into low-level components (`ArticleTable`), rather than the latter fetching them directly.
+
+### Separation of Concerns: Application vs Presentation Hooks
+
+We distinguish between two types of hooks to maintain strict Clean Architecture boundaries:
+
+1.  **Application Hooks (`features/**/application/hooks`)\*\*:
+    - **Responsibility**: Handle **Business Logic** and **State Management**.
+    - **Scope**: Fetching data, managing form state, coordinating complex workflows.
+    - **Example**: `useDashboardLogic`, `useArticles`.
+    - **Relationship**: Connects the Domain layer to the View.
+
+2.  **Presentation Hooks (`features/**/presentation/hooks`)\*\*:
+    - **Responsibility**: Handle **UI Implementation Details** and **View Logic**.
+    - **Scope**: Returning JSX elements (Icons), managing local UI animations, defining column configurations or action menus that contain UI components.
+    - **Example**: `useArticleActions`.
+    - **Relationship**: Tightly coupled to the rendering requirements of a specific component.
 
 ### Technology Stack: The "Why"
 
