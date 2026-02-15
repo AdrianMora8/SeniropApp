@@ -40,7 +40,47 @@ For reusable, business-agnostic components (`src/shared/components`), a strict A
 
 ---
 
-## 2. Detailed Structure Analysis
+## 2. Directory Structure
+
+The project follows a scalable and modular structure. Below is the complete tree of the `src/` directory with a brief explanation of each key module.
+
+```
+src/
+├── __tests__/              # Global test configuration and shared mocks
+├── assets/                 # Static assets (images, fonts, global styles)
+├── features/               # BUSINESS VERTICALS (Modular Architecture)
+│   ├── articles/           # Article Management Module
+│   │   ├── application/    # Hooks & Logic (useArticles, useArticleForm)
+│   │   ├── domain/         # Types & Schemas (Article, ArticleSchema)
+│   │   ├── infrastructure/ # Services & Storage (articleService)
+│   │   └── presentation/   # UI Components (ArticleForm, ArticleTable)
+│   └── dashboard/          # Dashboard Module
+│       ├── application/    # Dashboard-specific Logic (Pagination, Selection)
+│       └── presentation/   # Dashboard UI Templates & View Components
+├── pages/                  # Router "Controllers" (DashboardPage)
+├── shared/                 # SHARED KERNEL (Atomic Design)
+│   ├── components/         # Reusable UI Library
+│   │   ├── atoms/          # Base components (Button, Input, Switch)
+│   │   ├── molecules/      # Composite components (SearchBar, FormField)
+│   │   ├── organisms/      # Complex blocks (Sidebar, Header, AsidePanel)
+│   │   ├── templates/      # Layout structures
+│   │   └── ui/             # Shadcn/Radix primitives (popover, calendar)
+│   ├── hooks/              # Generic hooks (useMobile, useToast)
+│   ├── icons/              # SVG Icon components
+│   └── utils/              # Pure utility functions (dateFormatter, cn)
+├── App.tsx                 # Root Component & Router Configuration
+└── main.tsx                # Entry Point
+```
+
+This structure ensures that:
+
+1.  **Features are self-contained**: `articles` has its own domain, logic, and UI.
+2.  **Shared code is strictly separated**: `shared/` contains only business-agnostic code.
+3.  **Unidirectional dependency flow**: `features` depend on `shared`, but `shared` never depends on `features`.
+
+---
+
+## 3. Detailed Structure Analysis
 
 ### `src/features/` (The Heart of the CRM)
 
@@ -50,6 +90,10 @@ This is where business logic lives.
   - `application/hooks/`: Complex state logic. Placing logic in visual components is avoided to facilitate unit testing logic separately.
   - `domain/`: Data contracts. Using TypeScript + Zod here allows for a "Single Source of Truth" for validations.
   - `presentation/components/`: Components that only make sense within the context of articles.
+    - **`ArticleItem`**: Desktop table row. Optimized with `React.memo` to prevent re-renders and `useMemo` for date formatting.
+    - **`ArticleCard`**: Mobile-optimized view (Card format).
+    - **`ArticleDetails`**: Full view for SidePanel.
+    - **`ArticleForm`**: Form for Create/Edit with Zod + TanStack Form validation.
 - **`features/dashboard/`**: Main panel module.
   - `application/hooks/`: Contains specialized hooks for dashboard logic, split by responsibility:
     - `useDashboardLogic.ts`: Main entry point that orchestrates other hooks.
@@ -72,12 +116,14 @@ This layer is thin. Its only responsibility is to connect a Route (URL) with a F
 
 Code that belongs to no specific domain.
 
+- **`components/`**: Reusable UI blocks following Atomic Design.
+  - **`organisms/Sidebar`**: Primary navigation. Implements a dual-mode strategy (Fixed/Overlay for mobile, Static for desktop) and Scalable configuration via `NAV_ITEMS`.
 - **`hooks/`**: Generic infrastructure hooks (e.g., global event handling, media queries). _Note: Business hooks do NOT go here._
 - **`utils/`**: Pure functions (helpers). E.g., `dateFormatter`. Kept pure to be easily testable.
 
 ---
 
-## 3. Technical Decisions and Code Patterns
+## 4. Technical Decisions and Code Patterns
 
 ### Applied SOLID Principles
 
@@ -125,7 +171,7 @@ Vite is chosen over traditional tools like Webpack.
 
 ---
 
-## 4. Efficient State Management
+## 5. Efficient State Management
 
 A global monolithic store (like Redux) is avoided for this scope in favor of:
 

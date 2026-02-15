@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('should create a new article successfully', async ({ page }) => {
 
-    await page.goto('http://localhost:5173/dashboard');
+    await page.goto('/dashboard');
 
     await page.getByRole('button', { name: /Add Article/i }).click();
 

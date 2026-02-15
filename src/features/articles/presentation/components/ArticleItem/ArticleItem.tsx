@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react';
 import type { Article } from "@/features/articles/types/article";
 import { Switch } from "@/shared/components/atoms/Switch";
 import { Dropdown, type DropdownOption } from "@/shared/components/atoms/Dropdown";
@@ -11,12 +12,15 @@ export interface ArticleItemProps {
     dropdownOptions?: DropdownOption[];
 }
 
-export const ArticleItem = ({
+export const ArticleItem = memo(({
     article,
     onTogglePublished,
     onClick,
     dropdownOptions
 }: ArticleItemProps) => {
+
+    const formattedDate = useMemo(() => formatDate(article.publicationDate), [article.publicationDate]);
+
     return (
         <tr className="hover:bg-[rgb(var(--color-bg-secondary))] transition-colors cursor-pointer">
             <td
@@ -34,7 +38,7 @@ export const ArticleItem = ({
             </td>
             <td className="w-1/5 p-6" onClick={() => onClick(article.id)}>
                 <div className="font-normal text-[rgb(var(--color-text-tertiary))]">
-                    {formatDate(article.publicationDate)}
+                    {formattedDate}
                 </div>
             </td>
             <td className="w-1/5 p-6">
@@ -62,7 +66,9 @@ export const ArticleItem = ({
             </td>
         </tr>
     );
-};
+});
+
+ArticleItem.displayName = 'ArticleItem';
 
 
 

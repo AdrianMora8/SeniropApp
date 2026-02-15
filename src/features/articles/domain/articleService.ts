@@ -1,5 +1,10 @@
 import type { Article } from '../types/article';
 import type { ArticleFormData } from '../validation';
+import { articleSchema } from '../validation';
+
+export const validateArticle = (data: unknown): boolean => {
+    return articleSchema.safeParse(data).success;
+};
 
 export const createArticle = (data: ArticleFormData): Article => {
     const now = new Date().toISOString();

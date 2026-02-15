@@ -49,13 +49,12 @@ export const ArticleForm = ({
                                 htmlFor="headline"
                                 error={field.state.meta.isTouched ? field.state.meta.errors?.[0]?.message : undefined}
                             >
-                                <Textarea
+                                <Input
                                     id="headline"
                                     name="headline"
                                     value={field.state.value}
                                     onChange={(value) => field.handleChange(value)}
                                     placeholder="Enter article headline..."
-                                    rows={2}
                                 />
                             </FormField>
                         )}

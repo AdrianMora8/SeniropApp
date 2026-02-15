@@ -1,4 +1,5 @@
 
+import { memo, useMemo } from 'react';
 import type { Article } from "@/features/articles/types/article";
 import { Switch } from "@/shared/components/atoms/Switch";
 import { Dropdown, type DropdownOption } from "@/shared/components/atoms/Dropdown";
@@ -12,12 +13,15 @@ export interface ArticleCardProps {
     dropdownOptions?: DropdownOption[];
 }
 
-export const ArticleCard = ({
+export const ArticleCard = memo(({
     article,
     onTogglePublished,
     onClick,
     dropdownOptions
 }: ArticleCardProps) => {
+
+    const formattedDate = useMemo(() => formatDate(article.publicationDate), [article.publicationDate]);
+
     return (
         <div
             className="bg-[rgb(var(--color-bg-main))] border border-[rgb(var(--color-border-subtle))] rounded-lg p-4 flex flex-col gap-3 shadow-sm"
@@ -43,7 +47,7 @@ export const ArticleCard = ({
 
             <div className="text-sm text-[rgb(var(--color-text-tertiary))] flex flex-col gap-1">
                 <span>By {article.author}</span>
-                <span>{formatDate(article.publicationDate)}</span>
+                <span>{formattedDate}</span>
             </div>
 
             <div className="mt-2 pt-3 border-t border-[rgb(var(--color-border-subtle))] flex items-center justify-between">
@@ -58,4 +62,6 @@ export const ArticleCard = ({
             </div>
         </div>
     );
-};
+});
+
+ArticleCard.displayName = 'ArticleCard';

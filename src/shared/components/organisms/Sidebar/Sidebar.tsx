@@ -1,13 +1,14 @@
+import { useLocation } from 'react-router-dom';
 import { Button } from '@/shared/components/atoms/Button';
 import { SidebarItem } from '@/shared/components/molecules/SidebarItem';
 import logo from '@/assets/img/SeniropLogo.png';
 
 const NAV_ITEMS = [
-    { label: 'Dashboard', active: true },
-    { label: 'User management', active: false },
-    { label: 'Documents', active: false },
-    { label: 'Statistics', active: false },
-    { label: 'Settings', active: false }
+    { label: 'Dashboard', path: '/' },
+    { label: 'User management', path: '/users' },
+    { label: 'Documents', path: '/documents' },
+    { label: 'Statistics', path: '/statistics' },
+    { label: 'Settings', path: '/settings' }
 ] as const;
 
 interface SidebarProps {
@@ -16,6 +17,8 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+    const location = useLocation();
+
     return (
         <>
             {isOpen && (
@@ -38,7 +41,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                         <SidebarItem
                             key={item.label}
                             label={item.label}
-                            active={item.active}
+                            active={location.pathname === item.path || (item.path === '/' && location.pathname === '/dashboard')}
                         />
                     ))}
                 </div>

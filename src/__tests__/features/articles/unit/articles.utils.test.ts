@@ -52,7 +52,8 @@ describe('articles.utils', () => {
             headline: 'Test',
             author: 'Author',
             body: 'Body',
-            publicationDate: '2024-02-14',
+            publicationDate: '14/02/2024',
+            published: true,
         };
         expect(validateArticle(validArticle)).toBe(true);
     });

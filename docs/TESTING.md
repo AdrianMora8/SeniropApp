@@ -40,6 +40,10 @@ src/__tests__/
         ├── unit/           # Pure logic tests (utils, services)
         ├── integration/    # Component tests (Forms, Tables)
         └── e2e/            # Full flow tests (Playwright)
+        └── dashboard/      # Dashboard module tests
+            ├── unit/       # Pure logic tests (hooks)
+    shared/
+        ├── unit/           # Pure logic tests (hooks)
 ```
 
 ---
@@ -71,7 +75,32 @@ This file thoroughly tests the functions of the domain service `articleService.t
   - Verifies `updatedAt` automatically updates to a later date than the original.
   - Verifies immutability.
 
----
+### Application Hooks (`features/**/application/hooks`)
+
+Tests for custom hooks that manage business logic and state.
+
+#### File: `useArticles.test.ts`
+
+- **Scope**: CRUD operations for articles.
+- **Mocking**: Simulates `articleService` and `articleStorage` dependencies to isolate hook logic.
+- **Scenarios**:
+  - `createArticle`: Verifies state update and storage persistence.
+  - `deleteArticle`: Verifies item removal from the list.
+  - `togglePublished`: Verifies status updates.
+
+#### File: `useDashboardPagination.test.ts`
+
+- **Scope**: Pagination logic.
+- **Scenarios**:
+  - **Desktop**: Verifies correct slicing of the article array based on `currentPage`.
+  - **Mobile**: Verifies "Load More" functionality (appending items).
+
+#### File: `useDashboardSelection.test.ts`
+
+- **Scope**: Selection state management.
+- **Scenarios**:
+  - **Selection**: Verifies `selectedArticleId` updates on click.
+  - **Modes**: Verifies switching between `VIEW` and `EDIT` modes.
 
 ## 4. Integration Tests (`integration/`)
 
@@ -99,6 +128,8 @@ Tests list visualization and actions.
 
 **Technology:** Playwright
 **Objective:** Verify full user flows in a real browser.
+
+> **Configuration Note**: All E2E tests utilize the `baseURL` configured in `playwright.config.ts`. Navigation commands use relative paths (e.g., `page.goto('/dashboard')`) instead of hardcoded localhost URLs, ensuring tests can run against any environment (local, preview, prod).
 
 ### File: `create-article.spec.ts`
 

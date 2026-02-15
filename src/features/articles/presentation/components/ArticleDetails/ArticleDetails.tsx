@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import type { Article } from '@/features/articles/types/article';
 import { Switch } from '@/shared/components/atoms/Switch';
 import { Button } from '@/shared/components/atoms/Button';
@@ -14,6 +15,8 @@ export const ArticleDetails = ({
     onTogglePublished,
     onEdit
 }: ArticleDetailsProps) => {
+
+    const formattedDate = useMemo(() => article ? formatDate(article.publicationDate) : '', [article]);
 
     if (!article) {
         return <ArticleEmptyState />;
@@ -60,7 +63,7 @@ export const ArticleDetails = ({
 
                         <div className="h-10 flex items-center">
                             <p>
-                                {formatDate(article.publicationDate)}
+                                {formattedDate}
                             </p>
                         </div>
                     </div>
