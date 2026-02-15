@@ -105,12 +105,12 @@ export const ArticleForm = ({
                         {(field) => (
                             <FormField
                                 label="Publication Date *"
-                                htmlFor="publicationDate"
+                                htmlFor="Publication Date"
                                 error={field.state.meta.isTouched ? field.state.meta.errors?.[0]?.message : undefined}
                             >
                                 <DatePicker
-                                    id="publicationDate"
-                                    name="publicationDate"
+                                    id="Publication Date"
+                                    name="Publication Date"
                                     value={field.state.value}
                                     onChange={(value) => field.handleChange(value)}
                                 />

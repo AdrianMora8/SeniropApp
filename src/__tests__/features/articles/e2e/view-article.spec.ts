@@ -7,7 +7,11 @@ test('should open article details', async ({ page }) => {
     await page.getByRole('row').nth(1).click();
 
     await expect(
-        page.getByRole('heading', { name: /article/i })
+        page.getByRole('button', { name: /update/i })
+    ).toBeVisible();
+
+    await expect(
+        page.locator('span', { hasText: /^Author$/ })
     ).toBeVisible();
 
 });
