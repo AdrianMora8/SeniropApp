@@ -16,7 +16,7 @@ export const ArticleDetails = ({
 
     if (!article) {
         return (
-            <p className="text-gray-500">Article not found</p>
+            <p className="text-[rgb(var(--color-text-muted))]">Article not found</p>
         );
     }
 
@@ -25,14 +25,14 @@ export const ArticleDetails = ({
         <div className="flex flex-col h-full overflow-hidden">
             <div className="flex-1">
                 <div className="flex flex-col h-full gap-4">
-                    <div className="pb-4 border-b border-gray-100">
-                        <h1 className="text-2xl font-bold text-gray-900 leading-tight break-all line-clamp-4">
+                    <div className="pb-4 border-b border-[rgb(var(--color-border-subtle))]">
+                        <h1 className="text-2xl font-bold text-[rgb(var(--color-text-main))] leading-tight break-all line-clamp-4">
                             {article.headline}
                         </h1>
                     </div>
 
                     <div className="flex flex-col">
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="text-sm font-medium text-[rgb(var(--color-text-main))]">
                             Author
                         </span>
                         <div className="h-10 flex items-center">
@@ -43,7 +43,7 @@ export const ArticleDetails = ({
                     </div>
 
                     <div className="flex flex-col flex-1">
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="text-sm font-medium text-[rgb(var(--color-text-main))]">
                             Body
                         </span>
 
@@ -55,7 +55,7 @@ export const ArticleDetails = ({
                     </div>
 
                     <div className="flex flex-col">
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="text-sm font-medium text-[rgb(var(--color-text-main))]">
                             Publish Date
                         </span>
 

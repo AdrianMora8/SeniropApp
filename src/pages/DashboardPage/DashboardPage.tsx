@@ -39,7 +39,7 @@ export const DashboardPage = () => {
             label: 'View',
             icon: <ViewIcon
                 size={16}
-                className="text-gray-600"
+                className="text-[rgb(var(--color-text-tertiary))]"
             />,
             onClick: () => handleArticleClick(article.id)
         },
@@ -47,7 +47,7 @@ export const DashboardPage = () => {
             label: 'Edit',
             icon: <EditIcon
                 size={16}
-                className="text-gray-600"
+                className="text-[rgb(var(--color-text-tertiary))]"
             />,
             onClick: () => handleEdit(article.id)
         },
@@ -55,7 +55,7 @@ export const DashboardPage = () => {
             label: 'Delete',
             icon: <DeleteIcon
                 size={16}
-                className="text-gray-600"
+                className="text-[rgb(var(--color-text-tertiary))]"
             />,
             onClick: () => handleDelete(article.id)
         }

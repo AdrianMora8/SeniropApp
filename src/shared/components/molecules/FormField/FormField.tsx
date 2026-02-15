@@ -27,7 +27,7 @@ export const FormField = ({
             {children}
 
             {error && (
-                <span className="text-sm text-red-500">
+                <span className="text-sm text-[rgb(var(--color-danger))]">
                     {error}
                 </span>
             )}

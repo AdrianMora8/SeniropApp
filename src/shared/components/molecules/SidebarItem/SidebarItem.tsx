@@ -9,7 +9,7 @@ export const SidebarItem = ({ label, active = false, onClick }: SidebarItemProps
         <button
             type="button"
             onClick={onClick}
-            className={`w-full p-3 text-left text-lg text-white
+            className={`w-full p-3 text-left text-lg text-[rgb(var(--color-text-inverse))]
                 ${active ? 'font-semibold' : ''
                 }`}
         >

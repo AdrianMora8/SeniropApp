@@ -29,32 +29,32 @@ export const ArticleTable = ({
     if (articles.length === 0) {
         return (
             <div className="text-center py-12">
-                <p className="text-gray-500">No articles found</p>
+                <p className="text-[rgb(var(--color-text-muted))]">No articles found</p>
             </div>
         );
     }
 
     return (
-        <div className="bg-white border border-gray-200 rounded-lg">
+        <div className="bg-[rgb(var(--color-bg-main))] border border-[rgb(var(--color-border-subtle))] rounded-lg">
             <table>
                 <thead className="font-bold ">
                     <tr>
-                        <th className="p-6 text-left text-black tracking-wider">
+                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider">
                             Article Headline
                         </th>
-                        <th className="p-6 text-left text-black tracking-wider">
+                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider">
                             Author
                         </th>
-                        <th className="p-6 text-left text-black tracking-wider">
+                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider">
                             Publish Date
                         </th>
-                        <th className="p-6 text-left text-black tracking-wider">
+                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider">
                             Published
                         </th>
                         <th className="p-6"></th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-[rgb(var(--color-bg-main))] divide-y divide-[rgb(var(--color-border-subtle))]">
                     {articles.map((article) => (
                         <ArticleItem
                             key={article.id}

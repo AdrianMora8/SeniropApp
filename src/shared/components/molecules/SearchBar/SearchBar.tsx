@@ -27,7 +27,7 @@ export const SearchBar = ({ value, onChange, placeholder = 'Search' }: SearchBar
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 placeholder={placeholder}
-                className="w-full rounded-md border border-gray-300 bg-white py-3 pl-10 pr-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1"
+                className="w-full rounded-md border border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg-main))] py-3 pl-10 pr-3 text-[rgb(var(--color-text-main))] placeholder-[rgb(var(--color-text-disabled))] focus:outline-none focus:ring-1"
             />
         </div>
     );

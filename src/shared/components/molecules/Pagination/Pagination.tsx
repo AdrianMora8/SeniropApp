@@ -31,13 +31,13 @@ export const Pagination = ({
     };
 
     return (
-        <div className="flex items-center justify-between px-6 py-4 border-t border-gray-200">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-[rgb(var(--color-border-subtle))]">
             <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-700">Rows per page:</span>
+                <span className="text-sm text-[rgb(var(--color-text-secondary))]">Rows per page:</span>
                 <select
                     value={itemsPerPage}
                     onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-                    className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="border border-[rgb(var(--color-border))] rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[rgb(var(--color-border-focus))]"
                 >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
@@ -47,14 +47,14 @@ export const Pagination = ({
             </div>
 
             <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-[rgb(var(--color-text-secondary))]">
                     {startItem}-{endItem} of {totalItems}
                 </span>
                 <div className="flex gap-2">
                     <button
                         onClick={handlePrevious}
                         disabled={currentPage === 1}
-                        className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-2 rounded hover:bg-[rgb(var(--color-bg-tertiary))] disabled:opacity-50 disabled:cursor-not-allowed"
                         aria-label="Previous page"
                     >
                         <svg
@@ -76,7 +76,7 @@ export const Pagination = ({
                     <button
                         onClick={handleNext}
                         disabled={currentPage === totalPages}
-                        className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-2 rounded hover:bg-[rgb(var(--color-bg-tertiary))] disabled:opacity-50 disabled:cursor-not-allowed"
                         aria-label="Next page"
                     >
                         <svg

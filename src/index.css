@@ -10,6 +10,50 @@
 
     --font-roboto: "Roboto", sans-serif;
 
+    /* Semantic Palette */
+    /* CORE */
+    --color-primary: 37 99 235;        /* blue-600 */
+    --color-primary-hover: 29 78 216;  /* blue-700 */
+    
+    /* BACKGROUND */
+    --color-bg-main: 255 255 255;      /* white */
+    --color-bg-secondary: 249 250 251; /* gray-50 */
+    --color-bg-tertiary: 243 244 246;  /* gray-100 */
+    --color-bg-sidebar-dark: 66 66 66; /* #424242 */
+    --color-bg-sidebar-btn: 21 1 46;   /* #15012E */
+    --color-bg-sidebar-btn-hover: 26 1 64; /* #1a0140 */
+    --color-overlay: 0 0 0;            /* black */
+    
+    /* TEXT */
+    --color-text-main: 17 24 39;       /* gray-900 */
+    --color-text-secondary: 55 65 81;  /* gray-700 */
+    --color-text-tertiary: 75 85 99;   /* gray-600 */
+    --color-text-muted: 107 114 128;   /* gray-500 */
+    --color-text-disabled: 156 163 175;/* gray-400 */
+    --color-text-inverse: 255 255 255; /* white */
+    --color-text-link: 96 165 250;     /* blue-400 */
+    --color-text-link-hover: 37 99 235;/* blue-600 */
+    
+    /* BORDER */
+    --color-border: 209 213 219;       /* gray-300 */
+    --color-border-subtle: 229 231 235;/* gray-200 */
+    --color-border-focus: 59 130 246;  /* blue-500 */
+    
+    /* STATUS */
+    --color-success: 109 244 145;      /* #6DF491 */
+    --color-danger: 239 68 68;         /* red-500 */
+    
+    /* DISABLED */
+    --color-disabled-bg: 209 213 219;  /* gray-300 */
+    --color-disabled-text: 107 114 128;/* gray-500 */
+    
+    /* ICONS */
+    --color-icon-muted: 203 213 224;   /* #CBD5E0 */
+    
+    /* SPECIAL */
+    --color-switch-off: 142 142 142;   /* #8E8E8E */
+
+    /* Legacy/Existing (to be kept or removed later) */
     --color-publish-green: #6DF491;
     --color-publish-gray: #9ca3af; 
 

@@ -12,7 +12,7 @@ export const Label = ({
     return (
         <label
             htmlFor={htmlFor}
-            className={`text-sm font-medium text-gray-700 ${className}`}
+            className={`text-sm font-medium text-[rgb(var(--color-text-secondary))] ${className}`}
         >
             {children}
         </label>

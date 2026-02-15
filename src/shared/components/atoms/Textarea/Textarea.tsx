@@ -29,7 +29,7 @@ export const Textarea = ({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       rows={rows}
-      className={`w-full px-3 py-2 border rounded-md resize-none overflow-hidden ${hasError ? 'border-red-500' : 'border-gray-300'} ${className}`}
+      className={`w-full px-3 py-2 border rounded-md resize-none overflow-hidden ${hasError ? 'border-[rgb(var(--color-danger))]' : 'border-[rgb(var(--color-border))]'} ${className}`}
     />
   );
 };

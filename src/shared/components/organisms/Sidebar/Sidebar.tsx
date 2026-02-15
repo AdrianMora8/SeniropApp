@@ -12,7 +12,7 @@ const NAV_ITEMS = [
 
 export const Sidebar = () => {
     return (
-        <aside className="flex h-full w-68 shrink-0 flex-col bg-[#424242]">
+        <aside className="flex h-full w-68 shrink-0 flex-col bg-[rgb(var(--color-bg-sidebar-dark))]">
             <div className="flex flex-1 flex-col gap-15 p-10 overflow-auto">
                 <div>
                     <img src={logo} alt="Senirop Logo" className='w-full' />

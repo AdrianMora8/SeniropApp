@@ -17,7 +17,7 @@ export const Input = ({ value, onChange, placeholder, hasError, type = 'text', n
             id={id}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className={`w-full px-3 py-2 border rounded-md overflow-hidden ${hasError ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-md overflow-hidden ${hasError ? 'border-[rgb(var(--color-danger))]' : 'border-[rgb(var(--color-border))]'
                 }`}
         />
     );

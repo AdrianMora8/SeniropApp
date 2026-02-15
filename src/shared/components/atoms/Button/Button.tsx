@@ -18,10 +18,10 @@ export const Button = ({
     const widthStyle = fullWidth ? 'w-full' : 'w-auto min-w-[140px]';
 
     const variantStyles = {
-        primary: 'px-10 py-3 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed shadow-sm',
-        active: 'px-10 py-3 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed shadow-sm',
-        disabled: 'px-10 py-3 rounded-md bg-gray-300 text-gray-500 cursor-not-allowed',
-        sidebar: 'h-15 w-full bg-[#15012E] text-white hover:bg-[#1a0140] rounded-none text-base font-normal focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed'
+        primary: 'px-10 py-3 rounded-md bg-[rgb(var(--color-primary))] text-[rgb(var(--color-text-inverse))] hover:bg-[rgb(var(--color-primary-hover))] focus:ring-[rgb(var(--color-border-focus))] disabled:bg-[rgb(var(--color-disabled-bg))] disabled:text-[rgb(var(--color-disabled-text))] disabled:cursor-not-allowed shadow-sm',
+        active: 'px-10 py-3 rounded-md bg-[rgb(var(--color-primary))] text-[rgb(var(--color-text-inverse))] hover:bg-[rgb(var(--color-primary-hover))] focus:ring-[rgb(var(--color-border-focus))] disabled:bg-[rgb(var(--color-disabled-bg))] disabled:text-[rgb(var(--color-disabled-text))] disabled:cursor-not-allowed shadow-sm',
+        disabled: 'px-10 py-3 rounded-md bg-[rgb(var(--color-disabled-bg))] text-[rgb(var(--color-disabled-text))] cursor-not-allowed',
+        sidebar: 'h-15 w-full bg-[rgb(var(--color-bg-sidebar-btn))] text-[rgb(var(--color-text-inverse))] hover:bg-[rgb(var(--color-bg-sidebar-btn-hover))] rounded-none text-base font-normal focus:ring-[rgb(var(--color-border-focus))] disabled:opacity-50 disabled:cursor-not-allowed'
     };
 
     return (

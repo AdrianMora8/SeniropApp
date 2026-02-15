@@ -18,22 +18,22 @@ export const ArticleItem = ({
     dropdownOptions
 }: ArticleItemProps) => {
     return (
-        <tr className="hover:bg-gray-50 transition-colors cursor-pointer">
+        <tr className="hover:bg-[rgb(var(--color-bg-secondary))] transition-colors cursor-pointer">
             <td
                 className="w-2/5 h-20 p-6"
                 onClick={() => onClick(article.id)}
             >
-                <div className="font-normal text-gray-900">
+                <div className="font-normal text-[rgb(var(--color-text-main))]">
                     {article.headline}
                 </div>
             </td>
             <td className="w-1/5 p-6" onClick={() => onClick(article.id)}>
-                <div className="font-normal text-gray-600">
+                <div className="font-normal text-[rgb(var(--color-text-tertiary))]">
                     {article.author}
                 </div>
             </td>
             <td className="w-1/5 p-6" onClick={() => onClick(article.id)}>
-                <div className="font-normal text-gray-600">
+                <div className="font-normal text-[rgb(var(--color-text-tertiary))]">
                     {formatDate(article.publicationDate)}
                 </div>
             </td>
@@ -51,8 +51,8 @@ export const ArticleItem = ({
                     <div onClick={(e) => e.stopPropagation()} className="flex justify-end">
                         <Dropdown
                             trigger={
-                                <button className="flex items-center justify-center p-2 hover:bg-gray-200 rounded-full transition-all cursor-pointer border-none bg-transparent outline-none">
-                                    <DotsIcon className="text-gray-500 group-hover:text-gray-700" />
+                                <button className="flex items-center justify-center p-2 hover:bg-[rgb(var(--color-bg-tertiary))] rounded-full transition-all cursor-pointer border-none bg-transparent outline-none">
+                                    <DotsIcon className="text-[rgb(var(--color-text-muted))] group-hover:text-[rgb(var(--color-text-secondary))]" />
                                 </button>
                             }
                             options={dropdownOptions}

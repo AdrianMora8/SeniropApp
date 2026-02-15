@@ -19,7 +19,7 @@ export const FilterBar = ({
                     <select
                         value={filterStatus}
                         onChange={(e) => onFilterChange(e.target.value as 'all' | 'published' | 'unpublished')}
-                        className="rounded-md border border-gray-300 bg-white px-4 py-2 text-normal w-50 h-15 p-2"
+                        className="rounded-md border border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg-main))] px-4 py-2 text-normal w-50 h-15 p-2"
                     >
                         <option value="all">All</option>
                         <option value="published">Published</option>

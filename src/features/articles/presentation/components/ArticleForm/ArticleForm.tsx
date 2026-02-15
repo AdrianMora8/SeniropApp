@@ -35,8 +35,8 @@ export const ArticleForm = ({
     return (
         <form onSubmit={handleSubmit} className="flex flex-col h-full overflow-hidden">
             {title && (
-                <div className="pb-2 mb-2 border-b border-gray-100">
-                    <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+                <div className="pb-2 mb-2 border-b border-[rgb(var(--color-border-subtle))]">
+                    <h2 className="text-xl font-bold text-[rgb(var(--color-text-main))]">{title}</h2>
                 </div>
             )}
             <div className="flex-1">

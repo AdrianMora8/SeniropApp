@@ -54,7 +54,7 @@ export const DatePicker = ({
                     className={cn(
                         "w-full justify-start text-left font-normal",
                         !dateValue && "text-muted-foreground",
-                        hasError && "border-red-500 focus-visible:ring-red-500"
+                        hasError && "border-[rgb(var(--color-danger))] focus-visible:ring-[rgb(var(--color-danger))]"
                     )}
                 >
                     <CalendarIcon />

@@ -12,8 +12,8 @@ export const Header = ({
     onSearchChange
 }: HeaderProps) => {
     return (
-        <header className="flex items-center justify-between gap-8 border-b h-25 border-gray-200 bg-white px-6 py-4">
-            <span className="text-xl text-gray-400">{label}</span>
+        <header className="flex items-center justify-between gap-8 border-b h-25 border-[rgb(var(--color-border-subtle))] bg-[rgb(var(--color-bg-main))] px-6 py-4">
+            <span className="text-xl text-[rgb(var(--color-text-disabled))]">{label}</span>
             {onSearchChange && (
                 <div className="min-w-350">
                     <SearchBar value={searchValue} onChange={onSearchChange} />

@@ -18,7 +18,7 @@ export const Switch = ({ checked, onChange, label, disabled = false }: SwitchPro
                     className="absolute flex items-center w-14.5 h-9.5 p-3 opacity-50 rounded-[10px] left-0 top-0 transition-colors duration-200 ease-in-out"
                 >
                     <div
-                        className={`w-8.5 h-3.5 rounded-[10px] ${checked ? 'bg-[#6DF491]' : 'bg-[#8E8E8E]'
+                        className={`w-8.5 h-3.5 rounded-[10px] ${checked ? 'bg-[rgb(var(--color-success))]' : 'bg-[rgb(var(--color-switch-off))]'
                             }`}
                     />
                 </div>
@@ -29,8 +29,8 @@ export const Switch = ({ checked, onChange, label, disabled = false }: SwitchPro
                 >
                     <div
                         className={`w-5 h-5 rounded-full shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_rgba(0,0,0,0.14),0px_1px_3px_rgba(0,0,0,0.12)] ${checked
-                            ? 'bg-[#6DF491]'
-                            : 'bg-white border border-[#E5E5E5]'
+                            ? 'bg-[rgb(var(--color-success))]'
+                            : 'bg-[rgb(var(--color-bg-main))] border border-[rgb(var(--color-border-subtle))]'
                             }`}
                     />
                 </div>
