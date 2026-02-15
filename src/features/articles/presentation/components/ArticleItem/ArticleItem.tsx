@@ -20,15 +20,15 @@ export const ArticleItem = ({
     return (
         <tr className="hover:bg-[rgb(var(--color-bg-secondary))] transition-colors cursor-pointer">
             <td
-                className="w-2/5 h-20 p-6"
+                className="p-6 max-w-0"
                 onClick={() => onClick(article.id)}
             >
-                <div className="font-normal text-[rgb(var(--color-text-main))]">
+                <div className="font-normal text-[rgb(var(--color-text-main))] truncate" title={article.headline}>
                     {article.headline}
                 </div>
             </td>
-            <td className="w-1/5 p-6" onClick={() => onClick(article.id)}>
-                <div className="font-normal text-[rgb(var(--color-text-tertiary))]">
+            <td className="p-6 max-w-0" onClick={() => onClick(article.id)}>
+                <div className="font-normal text-[rgb(var(--color-text-tertiary))] truncate" title={article.author}>
                     {article.author}
                 </div>
             </td>

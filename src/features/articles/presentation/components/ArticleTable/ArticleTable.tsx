@@ -35,20 +35,20 @@ export const ArticleTable = ({
     }
 
     return (
-        <div className="bg-[rgb(var(--color-bg-main))] border border-[rgb(var(--color-border-subtle))] rounded-lg">
-            <table>
+        <div className="bg-[rgb(var(--color-bg-main))] border border-[rgb(var(--color-border-subtle))] rounded-lg overflow-x-auto">
+            <table className="min-w-5xl w-full">
                 <thead className="font-bold ">
                     <tr>
-                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider">
+                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider w-2/5">
                             Article Headline
                         </th>
-                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider">
+                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider w-1/5">
                             Author
                         </th>
-                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider">
+                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider w-1/5">
                             Publish Date
                         </th>
-                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider">
+                        <th className="p-6 text-left text-[rgb(var(--color-text-main))] tracking-wider w-1/5">
                             Published
                         </th>
                         <th className="p-6"></th>
@@ -66,13 +66,15 @@ export const ArticleTable = ({
                     ))}
                 </tbody>
             </table>
-            <Pagination
-                totalItems={totalArticles}
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
-                onPageChange={onPageChange}
-                onItemsPerPageChange={onItemsPerPageChange}
-            />
+            <div className="sticky left-0">
+                <Pagination
+                    totalItems={totalArticles}
+                    currentPage={currentPage}
+                    itemsPerPage={itemsPerPage}
+                    onPageChange={onPageChange}
+                    onItemsPerPageChange={onItemsPerPageChange}
+                />
+            </div>
         </div>
     );
 };
