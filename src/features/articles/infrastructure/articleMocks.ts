@@ -1,4 +1,4 @@
-import type { Article } from '@/types/article'
+import type { Article } from '@/features/articles/types/article'
 
 export const MOCK_ARTICLES: Article[] = [
     {

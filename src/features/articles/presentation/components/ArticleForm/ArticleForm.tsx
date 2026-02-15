@@ -7,7 +7,6 @@ import { DatePicker } from '@/shared/components/atoms/DatePicker';
 import { Switch } from '@/shared/components/atoms/Switch';
 import { Button } from '@/shared/components/atoms/Button';
 import { useArticleForm } from '@/features/articles/application/hooks/useArticleForm';
-import { articleSchema } from '@/features/articles/validation';
 import type { ArticleFormData } from '@/features/articles/validation';
 
 export interface ArticleFormProps {
@@ -25,47 +24,38 @@ export const ArticleForm = ({
 }: ArticleFormProps) => {
     const form = useArticleForm(initialData);
 
-    const isFormValid = useStore(form.store, (state) => {
-        const v = state.values;
-        return !!(v.headline && v.author && v.body && v.publicationDate);
-    });
+    const canSubmit = useStore(form.store, (state) => state.canSubmit);
 
     const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         e.stopPropagation();
-
-        // const result = articleSchema.safeParse(form.state.values);
-
-        // if (result.success) {
         onSubmit(form.state.values);
-        // } else {
-        // console.error('Validation errors:', result.error.flatten());
-        // }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col h-full">
+        <form onSubmit={handleSubmit} className="flex flex-col h-full overflow-hidden">
             {title && (
                 <div className="pb-2 mb-2 border-b border-gray-100">
                     <h2 className="text-xl font-bold text-gray-900">{title}</h2>
                 </div>
             )}
-            <div className="flex-1 overflow-y-auto">
-                <div className="flex flex-col gap-12">
+            <div className="flex-1">
+                <div className="flex flex-col h-full gap-4">
 
                     <form.Field name="headline">
                         {(field) => (
                             <FormField
                                 label="Headline *"
                                 htmlFor="headline"
-                                error={field.state.meta.errors?.[0]?.message}
+                                error={field.state.meta.isTouched ? field.state.meta.errors?.[0]?.message : undefined}
                             >
-                                <Input
+                                <Textarea
                                     id="headline"
                                     name="headline"
                                     value={field.state.value}
                                     onChange={(value) => field.handleChange(value)}
                                     placeholder="Enter article headline..."
+                                    rows={2}
                                 />
                             </FormField>
                         )}
@@ -76,7 +66,7 @@ export const ArticleForm = ({
                             <FormField
                                 label="Author *"
                                 htmlFor="author"
-                                error={field.state.meta.errors?.[0]?.message}
+                                error={field.state.meta.isTouched ? field.state.meta.errors?.[0]?.message : undefined}
                             >
                                 <Input
                                     id="author"
@@ -94,15 +84,19 @@ export const ArticleForm = ({
                             <FormField
                                 label="Body *"
                                 htmlFor="body"
-                                error={field.state.meta.errors?.[0]?.message}
+                                error={field.state.meta.isTouched ? field.state.meta.errors?.[0]?.message : undefined}
+                                className="flex-1"
                             >
                                 <Textarea
                                     id="body"
                                     name="body"
                                     value={field.state.value}
                                     onChange={(value) => field.handleChange(value)}
-                                    rows={10}
+                                    placeholder="Enter article content..."
+                                    rows={8}
+                                    className="flex-1"
                                 />
+
                             </FormField>
                         )}
                     </form.Field>
@@ -112,7 +106,7 @@ export const ArticleForm = ({
                             <FormField
                                 label="Publication Date *"
                                 htmlFor="publicationDate"
-                                error={field.state.meta.errors?.[0]?.message}
+                                error={field.state.meta.isTouched ? field.state.meta.errors?.[0]?.message : undefined}
                             >
                                 <DatePicker
                                     id="publicationDate"
@@ -138,11 +132,11 @@ export const ArticleForm = ({
 
             </div>
 
-            <div className="pt-8 pb-4 min-h-25 min-w-24 flex justify-end">
+            <div className="pt-4 pb-4 min-h-25 min-w-24 flex justify-end">
 
                 <Button
                     type="submit"
-                    variant={isFormValid ? 'active' : 'disabled'}
+                    variant={canSubmit ? 'active' : 'disabled'}
                 >
                     {submitLabel}
                 </Button>

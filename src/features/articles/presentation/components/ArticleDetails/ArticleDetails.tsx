@@ -1,7 +1,7 @@
-import type { Article } from '@/types/article';
+import type { Article } from '@/features/articles/types/article';
 import { Switch } from '@/shared/components/atoms/Switch';
 import { Button } from '@/shared/components/atoms/Button';
-import { formatDate } from '@/utils/dateFormatter';
+import { formatDate } from '@/shared/utils/dateFormatter';
 
 export interface ArticleDetailsProps {
     article: Article | undefined;
@@ -22,11 +22,11 @@ export const ArticleDetails = ({
 
     return (
 
-        <div className="flex flex-col h-full">
-            <div className="flex-1 overflow-y-auto">
-                <div className="flex flex-col gap-12">
+        <div className="flex flex-col h-full overflow-hidden">
+            <div className="flex-1">
+                <div className="flex flex-col h-full gap-4">
                     <div className="pb-4 border-b border-gray-100">
-                        <h1 className="text-2xl font-bold text-gray-900 leading-tight">
+                        <h1 className="text-2xl font-bold text-gray-900 leading-tight break-all line-clamp-4">
                             {article.headline}
                         </h1>
                     </div>
@@ -36,19 +36,19 @@ export const ArticleDetails = ({
                             Author
                         </span>
                         <div className="h-10 flex items-center">
-                            <p className="truncate">
+                            <p className="truncate break-all">
                                 {article.author}
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col flex-1">
                         <span className="text-sm font-medium text-gray-900">
                             Body
                         </span>
 
-                        <div className="h-68 overflow-y-auto">
-                            <p className="whitespace-pre-wrap">
+                        <div className="flex-1 overflow-hidden">
+                            <p className="whitespace-pre-wrap break-all line-clamp-15">
                                 {article.body}
                             </p>
                         </div>
@@ -78,9 +78,9 @@ export const ArticleDetails = ({
 
             {
                 onEdit && (
-                    <div className="pt-8 pb-4 flex justify-end">
+                    <div className="pt-4 pb-4 min-h-25 min-w-24 flex justify-end">
                         <Button
-                            variant="primary"
+                            variant="active"
                             onClick={onEdit}
                         >
                             UPDATE

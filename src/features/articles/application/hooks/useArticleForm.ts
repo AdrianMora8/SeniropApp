@@ -1,6 +1,6 @@
 import type { ArticleFormData } from '@/features/articles/validation';
 import { articleSchema } from '@/features/articles/validation';
-import { formatDate } from '@/utils/dateFormatter';
+import { formatDate } from '@/shared/utils/dateFormatter';
 import { useForm } from '@tanstack/react-form';
 
 export const useArticleForm = (initialData?: Partial<ArticleFormData>) => {
@@ -26,6 +26,7 @@ export const useArticleForm = (initialData?: Partial<ArticleFormData>) => {
         },
         validators: {
             onChange: articleSchema,
+            onMount: articleSchema,
         },
     });
 

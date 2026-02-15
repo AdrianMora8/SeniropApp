@@ -1,5 +1,8 @@
-export { DotsIcon } from './DotsIcon';
-export { SearchIcon } from './SearchIcon';
-export { ViewIcon } from './ViewIcon';
-export { EditIcon } from './EditIcon';
-export { DeleteIcon } from './DeleteIcon';
+export * from './DotsIcon';
+export * from './SearchIcon';
+export * from './ViewIcon';
+export * from './EditIcon';
+export * from './DeleteIcon';
+export * from './CalendarIcon';
+export * from './ChevronIcons';
+export * from './types';

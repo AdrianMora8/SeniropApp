@@ -5,9 +5,10 @@ import { AsidePanel } from '@/shared/components/organisms/AsidePanel';
 import { ArticleForm } from '@/features/articles/presentation/components/ArticleForm';
 import { ArticleDetails } from '@/features/articles/presentation/components/ArticleDetails';
 import type { DropdownOption } from '@/shared/components/atoms/Dropdown';
-import type { Article } from '@/types/article';
+import type { Article } from '@/features/articles/types/article';
 import { ViewIcon, EditIcon, DeleteIcon } from '@/shared/icons';
-import { useDashboardLogic } from '@/pages/DashboardPage/useDashboardLogic';
+import { useDashboardLogic } from '@/features/dashboard/application/hooks/useDashboardLogic';
+import { DASHBOARD_PANEL_MODES } from '@/features/dashboard/application/constants/dashboardConstants';
 
 export const DashboardPage = () => {
     const {
@@ -89,20 +90,20 @@ export const DashboardPage = () => {
                     isOpen={panelMode !== null}
                     onClose={handleClosePanel}
                 >
-                    {(panelMode === 'create' || panelMode === 'edit') && (
+                    {(panelMode === DASHBOARD_PANEL_MODES.CREATE || panelMode === DASHBOARD_PANEL_MODES.EDIT) && (
                         <ArticleForm
                             onSubmit={handleFormSubmit}
-                            title={panelMode === 'create' ? 'New article' : 'Edit article'}
-                            submitLabel={panelMode === 'create' ? 'SAVE' : 'UPDATE'}
+                            title={panelMode === DASHBOARD_PANEL_MODES.CREATE ? 'New article' : 'Edit article'}
+                            submitLabel={panelMode === DASHBOARD_PANEL_MODES.CREATE ? 'SAVE' : 'UPDATE'}
                             initialData={
-                                panelMode === 'edit' && selectedArticleId
+                                panelMode === DASHBOARD_PANEL_MODES.EDIT && selectedArticleId
                                     ? getArticleById(selectedArticleId)
                                     : undefined
                             }
                         />
                     )}
 
-                    {panelMode === 'view' && selectedArticleId && (
+                    {panelMode === DASHBOARD_PANEL_MODES.VIEW && selectedArticleId && (
                         <ArticleDetails
                             article={getArticleById(selectedArticleId)}
                             onTogglePublished={() => handleTogglePublished(selectedArticleId)}

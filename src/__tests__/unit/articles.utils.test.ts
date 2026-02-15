@@ -6,8 +6,9 @@ import {
     createArticle,
     togglePublished,
     updateArticle,
-} from '@/utils/articles.utils';
-import type { Article } from '@/types/article';
+} from '@/features/articles/domain/articleService';
+
+import type { Article } from '@/features/articles/types/article';
 import type { ArticleFormData } from '@/features/articles/validation';
 
 const mockArticles: Article[] = [

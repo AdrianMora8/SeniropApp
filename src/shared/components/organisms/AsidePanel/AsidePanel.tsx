@@ -14,7 +14,7 @@ export const AsidePanel = ({ isOpen, onClose, children }: AsidePanelProps) => {
                 onClick={onClose}
             />
 
-            <div className="fixed right-0 top-0 h-full w-125 bg-white shadow-xl z-50 flex flex-col">
+            <div className="fixed right-0 top-0 h-full w-130 bg-white shadow-xl z-50 flex flex-col overflow-hidden">
                 <div className="flex justify-end p-6">
                     <button
                         onClick={onClose}
@@ -24,7 +24,7 @@ export const AsidePanel = ({ isOpen, onClose, children }: AsidePanelProps) => {
                     </button>
                 </div>
 
-                <div className="flex-1 px-12 pb-12 flex flex-col overflow-y-auto" >
+                <div className="flex-1 px-6 flex flex-col" >
                     {children}
                 </div>
             </div>

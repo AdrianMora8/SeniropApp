@@ -1,6 +1,6 @@
 import { Pagination } from '@/shared/components/molecules/Pagination';
 import type { DropdownOption } from '@/shared/components/atoms/Dropdown';
-import type { Article } from '@/types/article';
+import type { Article } from '@/features/articles/types/article';
 import { ArticleItem } from '../ArticleItem';
 
 export interface ArticleTableProps {

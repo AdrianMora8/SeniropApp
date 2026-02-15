@@ -8,6 +8,7 @@ export interface TextareaProps {
   rows?: number;
   id?: string;
   name?: string;
+  className?: string;
 }
 
 export const Textarea = ({
@@ -17,7 +18,8 @@ export const Textarea = ({
   hasError,
   rows = 5,
   id,
-  name
+  name,
+  className = ''
 }: TextareaProps) => {
   return (
     <textarea
@@ -27,8 +29,7 @@ export const Textarea = ({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       rows={rows}
-      className={`w-full px-3 py-2 border rounded-md resize-none ${hasError ? 'border-red-500' : 'border-gray-300'
-        }`}
+      className={`w-full px-3 py-2 border rounded-md resize-none overflow-hidden ${hasError ? 'border-red-500' : 'border-gray-300'} ${className}`}
     />
   );
 };

@@ -1,32 +1,25 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useArticles } from '@/features/articles/application/hooks/useArticles';
+import { articleService } from '@/features/articles/domain/articleService';
 import type { ArticleFormData } from '@/features/articles/validation';
+import { DASHBOARD_PANEL_MODES, type DashboardPanelMode } from '../constants/dashboardConstants';
 
 export const useDashboardLogic = () => {
     const { articles, togglePublished, deleteArticle, createArticle, updateArticle, getArticleById } = useArticles();
     const [searchQuery, setSearchQuery] = useState('');
     const [filterStatus, setFilterStatus] = useState<'all' | 'published' | 'unpublished'>('all');
 
-    const [panelMode, setPanelMode] = useState<'create' | 'edit' | 'view' | null>(null);
+    const [panelMode, setPanelMode] = useState<DashboardPanelMode | null>(null);
     const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
 
     const filteredArticles = useMemo(() => {
-        return articles.filter((article) => {
-            const matchesSearch = article.headline
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase());
-
-            const matchesFilter =
-                filterStatus === 'all' ||
-                (filterStatus === 'published' && article.published) ||
-                (filterStatus === 'unpublished' && !article.published);
-
-            return matchesSearch && matchesFilter;
-        });
+        const searched = articleService.searchArticles(articles, searchQuery);
+        return articleService.filterArticles(searched, filterStatus);
     }, [articles, searchQuery, filterStatus]);
+
 
     useEffect(() => {
         setCurrentPage(1);
@@ -39,12 +32,12 @@ export const useDashboardLogic = () => {
 
     const handleArticleClick = (id: string) => {
         setSelectedArticleId(id);
-        setPanelMode('view');
+        setPanelMode(DASHBOARD_PANEL_MODES.VIEW);
     };
 
     const handleEdit = (id: string) => {
         setSelectedArticleId(id);
-        setPanelMode('edit');
+        setPanelMode(DASHBOARD_PANEL_MODES.EDIT);
     };
 
     const handleDelete = (id: string) => {
@@ -55,7 +48,7 @@ export const useDashboardLogic = () => {
 
     const handleAddArticle = () => {
         setSelectedArticleId(null);
-        setPanelMode('create');
+        setPanelMode(DASHBOARD_PANEL_MODES.CREATE);
     };
 
     const handleClosePanel = () => {
@@ -64,9 +57,9 @@ export const useDashboardLogic = () => {
     };
 
     const handleFormSubmit = (data: ArticleFormData) => {
-        if (panelMode === 'create') {
+        if (panelMode === DASHBOARD_PANEL_MODES.CREATE) {
             createArticle(data);
-        } else if (panelMode === 'edit' && selectedArticleId) {
+        } else if (panelMode === DASHBOARD_PANEL_MODES.EDIT && selectedArticleId) {
             updateArticle(selectedArticleId, data);
         }
         handleClosePanel();

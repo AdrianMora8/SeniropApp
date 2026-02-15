@@ -1,6 +1,6 @@
 import * as React from "react";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { format, parse, isValid } from "date-fns";
+import { CalendarIcon } from "@/shared/icons";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -27,24 +27,29 @@ export const DatePicker = ({
     name,
     placeholder = "Pick a date"
 }: DatePickerProps) => {
-    // Convert string value to Date object
-    const dateValue = value ? new Date(value) : undefined;
+    const dateValue = React.useMemo(() => {
+        if (!value) return undefined;
+        const parsed = parse(value, 'dd/MM/yyyy', new Date());
+        if (isValid(parsed)) return parsed;
+        const fallback = new Date(value);
+        return isValid(fallback) ? fallback : undefined;
+    }, [value]);
 
     const handleSelect = (date: Date | undefined) => {
         if (date) {
-            // Convert Date to ISO string format (YYYY-MM-DD)
-            const isoString = date.toISOString().split('T')[0];
-            onChange(isoString);
+            onChange(format(date, 'dd/MM/yyyy'));
         } else {
             onChange('');
         }
     };
+
 
     return (
         <Popover>
             <PopoverTrigger asChild>
                 <Button
                     id={id}
+                    name={name}
                     variant="outline"
                     className={cn(
                         "w-full justify-start text-left font-normal",
@@ -53,7 +58,8 @@ export const DatePicker = ({
                     )}
                 >
                     <CalendarIcon />
-                    {dateValue ? format(dateValue, "PPP") : <span>{placeholder}</span>}
+                    {dateValue && isValid(dateValue) ? format(dateValue, "PPP") : <span>{placeholder}</span>}
+
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">

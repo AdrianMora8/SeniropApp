@@ -1,8 +1,8 @@
-import type { Article } from "@/types/article";
+import type { Article } from "@/features/articles/types/article";
 import { Switch } from "@/shared/components/atoms/Switch";
 import { Dropdown, type DropdownOption } from "@/shared/components/atoms/Dropdown";
 import { DotsIcon } from "@/shared/icons";
-import { formatDate } from "@/utils/dateFormatter";
+import { formatDate } from "@/shared/utils/dateFormatter";
 
 export interface ArticleItemProps {
     article: Article;

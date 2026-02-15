@@ -1,47 +1,45 @@
-import { useState, useEffect } from 'react';
-import { MOCK_ARTICLES } from '@/store/constants';
-import type { Article } from '@/types/article';
-import { createArticle as createArticleUtil, updateArticle as updateArticleUtil, togglePublished as togglePublishedUtil } from '@/utils/articles.utils';
-import type { ArticleFormData } from '@/features/articles/validation';
+import { useState } from 'react';
+import { articleService } from '../../domain/articleService';
+import { articleStorage } from '../../infrastructure/articleStorage';
+import type { ArticleFormData } from '../../validation';
+import type { Article as ArticleType } from '../../types/article';
+
 
 export const useArticles = () => {
-    const [articles, setArticles] = useState<Article[]>(() => {
-        const saved = localStorage.getItem('articles');
-        return saved ? JSON.parse(saved) : MOCK_ARTICLES;
-    });
-
-    useEffect(() => {
-        localStorage.setItem('articles', JSON.stringify(articles));
-    }, [articles]);
+    const [articles, setArticles] = useState<ArticleType[]>(() => articleStorage.get());
 
     const createArticle = (articleData: ArticleFormData) => {
-        const newArticle = createArticleUtil(articleData);
-        setArticles((prev) => [newArticle, ...prev]);
+        const newArticle = articleService.createArticle(articleData);
+        const updatedArticles = [newArticle, ...articles];
+        setArticles(updatedArticles);
+        articleStorage.save(updatedArticles);
         return newArticle;
     };
 
-    const updateArticle = (id: string, articleData: Partial<Article>) => {
-        setArticles((prev) =>
-            prev.map((article) =>
-                article.id === id
-                    ? updateArticleUtil(article, articleData)
-                    : article
-            )
+    const updateArticle = (id: string, articleData: Partial<ArticleType>) => {
+        const updatedArticles = articles.map((article) =>
+            article.id === id
+                ? articleService.updateArticle(article, articleData)
+                : article
         );
+        setArticles(updatedArticles);
+        articleStorage.save(updatedArticles);
     };
 
     const deleteArticle = (id: string) => {
-        setArticles((prev) => prev.filter((article) => article.id !== id));
+        const updatedArticles = articles.filter((article) => article.id !== id);
+        setArticles(updatedArticles);
+        articleStorage.save(updatedArticles);
     };
 
     const togglePublished = (id: string) => {
-        setArticles((prev) =>
-            prev.map((article) =>
-                article.id === id
-                    ? togglePublishedUtil(article)
-                    : article
-            )
+        const updatedArticles = articles.map((article) =>
+            article.id === id
+                ? articleService.togglePublished(article)
+                : article
         );
+        setArticles(updatedArticles);
+        articleStorage.save(updatedArticles);
     };
 
     const getArticleById = (id: string) => {

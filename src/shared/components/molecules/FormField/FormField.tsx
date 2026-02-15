@@ -5,18 +5,20 @@ export interface FormFieldProps {
     htmlFor: string;
     error?: string;
     children: React.ReactNode;
+    className?: string;
 }
 
 export const FormField = ({
     label,
     htmlFor,
     error,
-    children
+    children,
+    className
 }: FormFieldProps) => {
 
     return (
 
-        <div className="flex flex-col gap-2">
+        <div className={`flex flex-col gap-2 ${className || ''}`}>
 
             <Label htmlFor={htmlFor}>
                 {label}

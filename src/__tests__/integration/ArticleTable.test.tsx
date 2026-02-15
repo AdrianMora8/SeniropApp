@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { ArticleTable } from '@/features/articles/presentation/components/ArticleTable';
-import type { Article } from '@/types/article';
+import type { Article } from '@/features/articles/types/article';
 
 const mockArticles: Article[] = [
     {
