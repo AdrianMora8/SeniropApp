@@ -7,9 +7,10 @@ interface UseArticleActionsProps {
     onView: (id: string) => void;
     onEdit: (id: string) => void;
     onDelete: (id: string) => void;
+    onGoToLiveSite: (id: string) => void;
 }
 
-export const useArticleActions = ({ onView, onEdit, onDelete }: UseArticleActionsProps) => {
+export const useArticleActions = ({ onView, onEdit, onDelete, onGoToLiveSite }: UseArticleActionsProps) => {
     const getArticleActions = useCallback((article: Article): DropdownOption[] => [
         {
             label: 'View',
@@ -18,6 +19,14 @@ export const useArticleActions = ({ onView, onEdit, onDelete }: UseArticleAction
                 className="text-[rgb(var(--color-text-tertiary))]"
             />,
             onClick: () => onView(article.id)
+        },
+        {
+            label: 'Go To Live Site',
+            icon: <ViewIcon
+                size={16}
+                className="text-[rgb(var(--color-text-tertiary))]"
+            />,
+            onClick: () => onGoToLiveSite(article.id)
         },
         {
             label: 'Edit',
@@ -35,7 +44,7 @@ export const useArticleActions = ({ onView, onEdit, onDelete }: UseArticleAction
             />,
             onClick: () => onDelete(article.id)
         }
-    ], [onView, onEdit, onDelete]);
+    ], [onView, onEdit, onDelete, onGoToLiveSite]);
 
     return { getArticleActions };
 };

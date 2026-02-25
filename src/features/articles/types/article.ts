@@ -7,4 +7,5 @@ export interface Article {
     published: boolean;
     createdAt: string;
     updatedAt: string;
+    images: string[];
 }

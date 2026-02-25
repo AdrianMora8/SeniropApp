@@ -36,6 +36,8 @@ export const articleSchema = z.object({
         }),
 
     published: z.boolean(),
+
+    images: z.array(z.string()),
 });
 
 export type ArticleFormData = z.infer<typeof articleSchema>;

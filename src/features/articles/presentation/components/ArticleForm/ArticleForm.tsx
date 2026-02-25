@@ -1,4 +1,4 @@
-import { type SubmitEvent } from 'react';
+import { useEffect, type SubmitEvent } from 'react';
 import { useStore } from '@tanstack/react-form';
 import { FormField } from '@/shared/components/molecules/FormField';
 import { Input } from '@/shared/components/atoms/Input';
@@ -6,8 +6,10 @@ import { Textarea } from '@/shared/components/atoms/Textarea';
 import { DatePicker } from '@/shared/components/atoms/DatePicker';
 import { Switch } from '@/shared/components/atoms/Switch';
 import { Button } from '@/shared/components/atoms/Button';
+import { FileInput } from '@/shared/components/atoms/FileInput';
 import { useArticleForm } from '@/features/articles/application/hooks/useArticleForm';
 import type { ArticleFormData } from '@/features/articles/validation';
+import { useImageUpload } from '@/features/articles/application/hooks/useImageUpload';
 
 export interface ArticleFormProps {
     initialData?: Partial<ArticleFormData>;
@@ -23,13 +25,19 @@ export const ArticleForm = ({
     title
 }: ArticleFormProps) => {
     const form = useArticleForm(initialData);
-
     const canSubmit = useStore(form.store, (state) => state.canSubmit);
+    const { files, addFiles, removeFile, successfulDataUrls } = useImageUpload();
+
+    // Keep the form field in sync whenever the upload list changes
+    useEffect(() => {
+        form.setFieldValue('images', successfulDataUrls as any);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [successfulDataUrls]);
 
     const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         e.stopPropagation();
-        onSubmit(form.state.values);
+        onSubmit({ ...form.state.values, images: successfulDataUrls });
     };
 
     return (
@@ -95,7 +103,6 @@ export const ArticleForm = ({
                                     rows={8}
                                     className="flex-1"
                                 />
-
                             </FormField>
                         )}
                     </form.Field>
@@ -127,19 +134,32 @@ export const ArticleForm = ({
                         )}
                     </form.Field>
 
-                </div>
+                    <form.Field name="images">
+                        {(field) => (
+                            <FormField
+                                label="Upload images"
+                                htmlFor="image"
+                                error={field.state.meta.isTouched ? field.state.meta.errors?.[0]?.message : undefined}
+                            >
+                                <FileInput
+                                    files={files}
+                                    onAddFiles={addFiles}
+                                    onRemoveFile={removeFile}
+                                />
+                            </FormField>
+                        )}
+                    </form.Field>
 
+                </div>
             </div>
 
             <div className="pt-4 pb-4 min-h-25 min-w-24 flex justify-end">
-
                 <Button
                     type="submit"
                     variant={canSubmit ? 'active' : 'disabled'}
                 >
                     {submitLabel}
                 </Button>
-
             </div>
         </form>
     );

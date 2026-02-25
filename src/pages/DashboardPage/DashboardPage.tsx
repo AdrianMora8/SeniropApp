@@ -7,8 +7,10 @@ import { ArticleDetails } from '@/features/articles/presentation/components/Arti
 import { useDashboardLogic } from '@/features/dashboard/application/hooks/useDashboardLogic';
 import { DASHBOARD_PANEL_MODES } from '@/features/dashboard/application/constants/dashboardConstants';
 import { useArticleActions } from '@/features/dashboard/presentation/hooks/useArticleActions';
+import { useNavigate } from 'react-router-dom';
 
 export const DashboardPage = () => {
+    const navigate = useNavigate();
     const {
         selectedArticleId,
         filterStatus,
@@ -38,7 +40,8 @@ export const DashboardPage = () => {
     const { getArticleActions } = useArticleActions({
         onView: (id) => handleArticleClick(id),
         onEdit: (id) => handleEdit(id),
-        onDelete: (id) => handleDelete(id)
+        onDelete: (id) => handleDelete(id),
+        onGoToLiveSite: (id) => navigate(`/article/${id}`)
     });
 
     return (

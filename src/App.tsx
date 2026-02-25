@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { MainLayout } from './shared/components/layouts/MainLayout';
 import { DashboardPage } from './pages/DashboardPage';
+import { ArticleShowPage } from './pages/ArticleShowPage/ArticleShowPage';
 
 function App() {
     return (
@@ -9,7 +10,6 @@ function App() {
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Navigate to="/dashboard" replace />} />
                     <Route path="dashboard" element={<DashboardPage />} />
-
                     {/* <Route path="settings" element={<SettingsPage />} /> */}
                     {/* <Route path="users" element={<UsersPage />} /> */}
                     {/* <Route path="documents" element={<DocumentsPage />} /> */}
@@ -17,6 +17,7 @@ function App() {
 
                     <Route path="*" element={<Navigate to="/dashboard" replace />} />
                 </Route>
+                <Route path="article/:id" element={<ArticleShowPage />} />
             </Routes>
         </BrowserRouter>
     );

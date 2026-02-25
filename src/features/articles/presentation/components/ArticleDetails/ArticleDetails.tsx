@@ -4,6 +4,7 @@ import { Switch } from '@/shared/components/atoms/Switch';
 import { Button } from '@/shared/components/atoms/Button';
 import { formatDate } from '@/shared/utils/dateFormatter';
 import { ArticleEmptyState } from '../ArticleEmptyState';
+import { ArticlePreview } from '../ArticlePreview/ArticlePreview';
 
 export interface ArticleDetailsProps {
     article: Article | undefined;
@@ -55,6 +56,8 @@ export const ArticleDetails = ({
                             </p>
                         </div>
                     </div>
+
+                    <ArticlePreview images={article.images ?? []} />
 
                     <div className="flex flex-col">
                         <span className="text-sm font-medium text-[rgb(var(--color-text-main))]">

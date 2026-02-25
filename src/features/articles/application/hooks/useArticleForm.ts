@@ -13,6 +13,7 @@ export const useArticleForm = (initialData?: Partial<ArticleFormData>) => {
                 ? formatDate(initialData.publicationDate)
                 : '',
             published: initialData?.published ?? false,
+            images: initialData?.images || [],
         },
         onSubmit: async ({ value }) => {
             const result = articleSchema.safeParse(value);
